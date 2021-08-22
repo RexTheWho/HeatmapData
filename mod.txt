@@ -1,0 +1,21 @@
+{
+	"name" : "HeatmapData",
+	"description" : "Logs out character positions during during a heist to be used in heatmaps",
+	"author" : "Xeletron, Rex",
+	"blt_version" : 2,
+	"version" : "1",
+	"priority" : 0,
+	"hooks" : [   
+        {"hook_id" : "lib/setups/setup", "script_path" : "lua/heatmaptools.lua"}
+        {"hook_id" : "lib/managers/gameplaycentralmanager", "script_path" : "lua/gameplaycentralmanager.lua"}
+        {"hook_id" : "lib/utils/accelbyte/telemetry", "script_path" : "lua/telemetry.lua"}
+        {"hook_id" : "lib/managers/playermanager", "script_path" : "lua/eventlootbag.lua"}
+        {"hook_id" : "lib/managers/hudmanager", "script_path" : "lua/eventwaypoint.lua"}
+        {"hook_id" : "lib/units/props/securitycamera", "script_path" : "lua/eventsecuritycamera.lua"}
+        {"hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "lua/eventgrenades.lua"}
+        {"hook_id" : "lib/units/weapons/grenades/smokescreengrenade", "script_path" : "lua/eventgrenades.lua"}
+        {"hook_id" : "lib/units/weapons/grenades/quickflashgrenade", "script_path" : "lua/eventflashbang.lua"}
+	]
+}
+
+F:\PAYDAY2 Era Stuff\payday-2-luajit-master\core\lib\managers\coreenvironmentcontrollermanager.lua

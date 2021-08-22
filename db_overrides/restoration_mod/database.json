@@ -1,0 +1,20 @@
+{
+	"init_rank": 10,
+	
+	"heisters": {},
+	
+	"characters": {
+		"gensec_guard": "security",
+		"dave": "dave",
+	},
+	
+	"misc_icons": {},
+	
+	"unique_cases": {
+		"wetwork": {
+			"characters_enemies": {
+				"civilian": "resdoge",
+			},
+		},
+	}
+}
