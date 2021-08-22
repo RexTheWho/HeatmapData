@@ -159,3 +159,13 @@ function HeatMap:UnitAddTrackerOnBone(unit_id, bone_id)
 	end
 end
 
+
+-- Tracklist
+function HeatMap:get_tracklist_id(character)
+	for i, value in ipairs(HeatMap.track_characters) do
+		if value == character then
+			return i-1
+		end
+	end
+	return false
+end

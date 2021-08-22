@@ -15,7 +15,6 @@
         {"hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "lua/eventgrenades.lua"}
         {"hook_id" : "lib/units/weapons/grenades/smokescreengrenade", "script_path" : "lua/eventgrenades.lua"}
         {"hook_id" : "lib/units/weapons/grenades/quickflashgrenade", "script_path" : "lua/eventflashbang.lua"}
+        {"hook_id" : "lib/managers/playermanager", "script_path" : "lua/eventplayermanager.lua"}
 	]
 }
-
-F:\PAYDAY2 Era Stuff\payday-2-luajit-master\core\lib\managers\coreenvironmentcontrollermanager.lua

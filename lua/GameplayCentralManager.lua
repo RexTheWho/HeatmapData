@@ -67,9 +67,9 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 		
         local heatmap = {}
 		
+		local characters = {}
 		
-		-- Players [ID, X, Y, Z, R]
-		local players = {}
+		-- Players [uID, X, Y, Z, R, tID]
 		-- BUG: managers.criminals:characters() is based on the tweakdata order not the peer order.
 		-- BUG: CriminalsManager:character_color_id_by_unit(unit) might work but seems bots will always be bot blue.
 		for id, data in pairs(managers.criminals:characters()) do
@@ -81,30 +81,28 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				else
 					rot = data.unit:rotation()
 				end
-				local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw())}
-				table.insert(players, char_data)
+				
+				local heister = data.name
+				local tweak_id = HeatMap:get_tracklist_id(heister)
+				if not tweak_id then
+					tweak_id = #HeatMap.track_characters
+					table.insert(HeatMap.track_characters, heister)
+				end
+				
+				local char_data = {data.unit:id(), math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
+				table.insert(characters, char_data)
 			end
 		end
-		table.insert(heatmap, players)
 		
 		
-		-- Enemies [ID, PosX, PosY, PosZ, Rot, TypeID]
-		local enemies = {}
+		-- Enemies [uID, X, Y, Z, R, tID]
 		-- WARNING: enemy manager doesnt seem to pick up custom enemies with the all_enemies function!!
 		for _, data in pairs(managers.enemy:all_enemies()) do
-			local function get_tracklist_id(val)
-				for i, value in ipairs(HeatMap.track_characters) do
-					if value == val then
-						return i-1
-					end
-				end
-				return false
-			end
 			local pos = data.unit:position()
 			local rot = data.unit:rotation()
 			local id = data.unit:id()
 			local tweak = data.unit:base()._tweak_table
-			local tweak_id = get_tracklist_id(tweak)
+			local tweak_id = HeatMap:get_tracklist_id(tweak)
 			
 			if not tweak_id then
 				tweak_id = #HeatMap.track_characters
@@ -113,22 +111,28 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			
 			-- note, if there's ever issues with player/character overlap the ID might be the culprit!
 			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
-			table.insert(enemies, char_data)
+			table.insert(characters, char_data)
 		end
-		table.insert(heatmap, enemies)
 		
 		
-		-- Civilians [ID, X, Y, Z, R, Type]
-		local civilians = {}
+		-- Civilians [uID, X, Y, Z, R, tID]
 		for _, data in pairs(managers.enemy:all_civilians()) do
 			local pos = data.unit:position()
 			local rot = data.unit:rotation()
 			local id = data.unit:id()
+			local tweak = data.unit:base()._tweak_table
+			local tweak_id = HeatMap:get_tracklist_id(tweak)
+			
+			if not tweak_id then
+				tweak_id = #HeatMap.track_characters
+				table.insert(HeatMap.track_characters, tweak)
+			end
 			-- note, if there's ever issues with player/character overlap the ID might be the culprit!
-			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw())}
-			table.insert(civilians, char_data)
+			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
+			table.insert(characters, char_data)
 		end
-		table.insert(heatmap, civilians)
+		
+		table.insert(heatmap, characters)
 		
 		
 		-- Misc Units (FWB ball, Shark, Turrets, Vehicles... Anything that we want to track without calling it a character.)
