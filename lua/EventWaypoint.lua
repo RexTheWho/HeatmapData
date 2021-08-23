@@ -9,7 +9,11 @@ Hooks:PostHook(HUDManager, "add_waypoint", "Heatmap_add_waypoint", function(self
 			-- atm seems like were not getting any unit data.
 			track_unit = data.unit:id()
 		end
-		HeatMap:EventAdd({ "wp", "add", id, data.icon, math.round(pos.x), math.round(pos.y), math.round(pos.z), track_unit })
+		if not track_unit then
+			HeatMap:EventAdd({ "wp", "add", id, data.icon, math.round(pos.x), math.round(pos.y), math.round(pos.z) })
+		else
+			HeatMap:EventAdd({ "wp", "add", id, data.icon, math.round(pos.x), math.round(pos.y), math.round(pos.z), track_unit })
+		end
 	end
 end)
 

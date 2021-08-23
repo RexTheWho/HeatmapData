@@ -95,8 +95,8 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 		end
 		
 		
+		-- Custom enemies and civilians both use identical functions, I should make a function to handle it multiple times
 		-- Enemies [uID, X, Y, Z, R, tID]
-		-- WARNING: enemy manager doesnt seem to pick up custom enemies with the all_enemies function!!
 		for _, data in pairs(managers.enemy:all_enemies()) do
 			local pos = data.unit:position()
 			local rot = data.unit:rotation()
@@ -109,7 +109,6 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				table.insert(HeatMap.track_characters, tweak)
 			end
 			
-			-- note, if there's ever issues with player/character overlap the ID might be the culprit!
 			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
 			table.insert(characters, char_data)
 		end
@@ -127,7 +126,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				tweak_id = #HeatMap.track_characters
 				table.insert(HeatMap.track_characters, tweak)
 			end
-			-- note, if there's ever issues with player/character overlap the ID might be the culprit!
+			
 			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
 			table.insert(characters, char_data)
 		end
