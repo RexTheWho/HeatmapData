@@ -82,6 +82,7 @@ function HeatMap:SaveTrackData()
 	if file then
 		HeatMap.track_header.characters = HeatMap.track_characters
 		if HeatMap.track_save_per_frame == false then
+			HeatMap.track_header.frame_total = #HeatMap.track_frames
 			HeatMap:Append(json.encode(HeatMap.track_header), true)
 		end
 		
