@@ -3,7 +3,7 @@ _G.HeatMap = _G.HeatMap or {
     update_delay = 0.125,
 -- update_delay quality: super_low = 1.0, low = 0.75, 2fps = 0.5, 4fps = 0.25, 8fps = 0.125, 15fps = 0.0666666666667, 30fps = 0.0333333333333, 60fps = 0.0166666666667
     filename = ModPath,
-    rec_folder = "records/",
+    rec_folder = "records",
 	track_save_per_frame = false,
 	
 	track_path = "",
@@ -28,17 +28,20 @@ _G.HeatMap = _G.HeatMap or {
 function HeatMap:GetTrackPath()
 	local lvl_id = Global.level_data and Global.level_data.level_id or "err"
 	local dates = Application:date("%Y-%m-%d_%H_%M_%S")
-	local file = HeatMap.filename..HeatMap.rec_folder..dates.."_"..lvl_id..".pdheat"
+	local file = HeatMap.filename..HeatMap.rec_folder.."/"..dates.."_"..lvl_id..".pdheat"
 	return file
 end
 
+function HeatMap:GetTrackDirectory()
+	return HeatMap.filename..HeatMap.rec_folder
+end
 
 
 -- Same as GetTrackPath but sets the track path directly.
 function HeatMap:UpdateTrackPath()
 	local lvl_id = Global.level_data and Global.level_data.level_id or "err"
 	local dates = Application:date("%Y-%m-%d_%H_%M_%S")
-	local file = HeatMap.filename..HeatMap.rec_folder..dates.."_"..lvl_id..".pdheat"
+	local file = HeatMap.filename..HeatMap.rec_folder.."/"..dates.."_"..lvl_id..".pdheat"
 	HeatMap.track_path = file
 end
 
@@ -79,6 +82,14 @@ end
 function HeatMap:SaveTrackData()
 	log("PDHeat: Saving track data!")
 	local file = io.open(HeatMap.track_path, "a")
+	
+	if not file then
+		-- I should probs make this use a proper dir check instead of a valid file but whatever...
+		log("PDHeat: Missing records folder, generating a new one.")
+		os.execute("mkdir " .. string.gsub(HeatMap.GetTrackDirectory(), "/", "\\") .. "\\")
+		file = io.open(HeatMap.track_path, "a")
+	end
+	
 	if file then
 		HeatMap.track_header.characters = HeatMap.track_characters
 		if HeatMap.track_save_per_frame == false then
