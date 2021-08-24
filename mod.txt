@@ -9,12 +9,24 @@
         {"hook_id" : "lib/setups/setup", "script_path" : "lua/heatmaptools.lua"}
         {"hook_id" : "lib/managers/gameplaycentralmanager", "script_path" : "lua/gameplaycentralmanager.lua"}
         {"hook_id" : "lib/utils/accelbyte/telemetry", "script_path" : "lua/telemetry.lua"}
+		
         {"hook_id" : "lib/managers/playermanager", "script_path" : "lua/eventlootbag.lua"}
         {"hook_id" : "lib/managers/hudmanager", "script_path" : "lua/eventwaypoint.lua"}
         {"hook_id" : "lib/units/props/securitycamera", "script_path" : "lua/eventsecuritycamera.lua"}
         {"hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "lua/eventgrenades.lua"}
-        {"hook_id" : "lib/units/weapons/grenades/smokescreengrenade", "script_path" : "lua/eventgrenades.lua"}
+        {"hook_id" : "lib/units/weapons/grenades/smokescreengrenade", "script_path" : "lua/eventsicario.lua"}
         {"hook_id" : "lib/units/weapons/grenades/quickflashgrenade", "script_path" : "lua/eventflashbang.lua"}
+        {"hook_id" : "lib/units/environment/environmentfire", "script_path" : "lua/eventmolotov.lua"}
         {"hook_id" : "lib/managers/playermanager", "script_path" : "lua/eventplayermanager.lua"}
+		
+        {"hook_id" : "lib/units/equipment/ammo_bag/ammobagbase", "script_path" : "lua/eventdeployables/eventdeployammobag.lua"}
+        {"hook_id" : "lib/units/equipment/bodybags_bag/bodybagsbagbase", "script_path" : "lua/eventdeployables/eventdeploybodybagsbag.lua"}
+        {"hook_id" : "lib/units/equipment/doctor_bag/doctorbagbase", "script_path" : "lua/eventdeployables/eventdeploydoctorbag.lua"}
+        {"hook_id" : "lib/units/equipment/ecm_jammer/ecmjammerbase", "script_path" : "lua/eventdeployables/eventdeployecmjammer.lua"}
+        {"hook_id" : "lib/units/equipment/first_aid_kit/firstaidkitbase", "script_path" : "lua/eventdeployables/eventdeployfirstaidkit.lua"}
+        {"hook_id" : "lib/units/equipment/grenade_crate/grenadecratebase", "script_path" : "lua/eventdeployables/eventdeploygrenadecrate.lua"}
+        {"hook_id" : "lib/units/equipment/sentry_gun/sentrygunbase", "script_path" : "lua/eventdeployables/eventdeploysentrygun.lua"}
+		
+        {"hook_id" : "lib/units/pickups/ammoclip", "script_path" : "lua/eventammoclip.lua"}
 	]
 }
