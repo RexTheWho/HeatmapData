@@ -9,6 +9,5 @@ end)
 
 Hooks:PreHook(AmmoClip, "_pickup", "Heatmap_ammo_pickup", function(self)
 	local id = self._unit:id()
-	local pos = self._unit:position()
 	HeatMap:EventAdd({ "ammo", id }, true)
 end)
