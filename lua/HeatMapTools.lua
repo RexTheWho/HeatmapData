@@ -4,6 +4,7 @@ _G.HeatMap = _G.HeatMap or {
 -- update_delay quality: super_low = 1.0, low = 0.75, 2fps = 0.5, 4fps = 0.25, 8fps = 0.125, 15fps = 0.0666666666667, 30fps = 0.0333333333333, 60fps = 0.0166666666667
     filename = ModPath,
     rec_folder = "records",
+	nav_folder = "nav_data",
 	track_save_per_frame = false,
 	
 	track_path = "",
@@ -111,6 +112,18 @@ function HeatMap:SaveTrackData()
 	end
 end
 
+-- Exports the navigation data of the current heist if not already present
+function HeatMap:DumpNavData(level_id, path)
+	local output_path = Path:Combine(HeatMap.filename, HeatMap.nav_folder, level_id .. ".nav_data")
+	
+	if not FileIO:Exists(output_path) then
+		if DB:has("nav_data", path) and managers.worlddefinition then
+			local data = managers.worlddefinition:_serialize_to_script("nav_data", path)
+			FileIO:WriteScriptData(output_path, data, "generic_xml")
+			log("PDHeat: Converted Nav Data!")
+		end
+	end
+end
 
 -- Add events to the frames event array.
 -- ToDo: I would like to implement a value to better mark events and when they happen;

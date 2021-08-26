@@ -7,6 +7,7 @@
 	"priority" : 0,
 	"hooks" : [   
         {"hook_id" : "lib/setups/setup", "script_path" : "lua/heatmaptools.lua"}
+		{"hook_id" : "lib/utils/dev/editor/worlddefinition", "script_path" : "lua/WorldDefinition.lua"}
         {"hook_id" : "lib/managers/gameplaycentralmanager", "script_path" : "lua/gameplaycentralmanager.lua"}
         {"hook_id" : "lib/utils/accelbyte/telemetry", "script_path" : "lua/telemetry.lua"}
 		
