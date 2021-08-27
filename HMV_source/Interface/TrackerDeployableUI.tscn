@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Textures/Equipment/deployable_rin_fg.png" type="Texture" id=1]
+[ext_resource path="res://Textures/Equipment/deployable_rin_bg.png" type="Texture" id=2]
+[ext_resource path="res://Interface/TrackerDeployableUI.gd" type="Script" id=3]
+[ext_resource path="res://Textures/Equipment/ecm_jammer.png" type="Texture" id=4]
+
+[node name="Deployable" type="TextureRect"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 4 )
+stretch_mode = 6
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="UseDots" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -4.0
+margin_top = -14.0
+margin_right = 4.0
+margin_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 16, 16 )
+size_flags_horizontal = 6
+custom_constants/separation = -2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RingDuration" type="TextureProgress" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+step = 0.01
+value = 69.0
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,22 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Trackers/TrackerNodeHolder.gd" type="Script" id=1]
+[ext_resource path="res://Trackers/TrackerUnit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Trackers/TrackerCharacter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Trackers/TrackerEquipment.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Trackers/TrackerWaypoint.gd" type="Script" id=5]
+[ext_resource path="res://Trackers/TrackerCamera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Trackers/TrackerGrenade.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Trackers/StatusArea.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Trackers/TrackerDeployable.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Textures/Equipment/AmmoClip/ammoclip.tscn" type="PackedScene" id=10]
+
+[node name="TrackerNodeHolder" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Resources" type="ResourcePreloader" parent="."]
+resources = [ PoolStringArray( "AmmoClip", "Camera", "Character", "Deploy", "Equipment", "Grenade", "StunEffect", "Unit", "WaypointScript" ), [ ExtResource( 10 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 5 ) ] ]
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_frame_wait_timeout"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Textures/tracker_marker_spot.png" type="Texture" id=1]
+[ext_resource path="res://Textures/Equipment/sentry_gun.png" type="Texture" id=2]
+[ext_resource path="res://Textures/tracker_marker_pointer.png" type="Texture" id=3]
+
+[node name="TrackerEquipment" type="Spatial"]
+
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+billboard = 1
+texture = ExtResource( 2 )
+
+[node name="Spot" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource( 1 )
+
+[node name="Direction" type="Spatial" parent="."]
+
+[node name="Arrow" type="Sprite3D" parent="Direction"]
+transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0.2 )
+pixel_size = 0.005
+axis = 1
+texture = ExtResource( 3 )

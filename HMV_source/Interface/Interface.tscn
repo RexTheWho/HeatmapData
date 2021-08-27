@@ -1,0 +1,252 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://DINEngschrift.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Interface/Interface.gd" type="Script" id=2]
+[ext_resource path="res://OverlayECM.gd" type="Script" id=3]
+[ext_resource path="res://Textures/Equipment/ecm_jammer.png" type="Texture" id=4]
+[ext_resource path="res://Materials/jammed.tres" type="Material" id=5]
+[ext_resource path="res://Textures/Characters/character_icon_dallas.png" type="Texture" id=6]
+[ext_resource path="res://Trackers/TrackerCharacterList.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Textures/still_loading_recording.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.560784 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "start"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( -1, 1 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Interface" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="OverlayECM" type="ColorRect" parent="."]
+visible = false
+material = ExtResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+event_show = "ecm_jammer_on"
+event_hide = "ecm_jammer_off"
+
+[node name="TextureRect" type="TextureRect" parent="OverlayECM"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -32.0
+margin_top = -64.0
+margin_right = 32.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="OverlayECM"]
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -42.0
+margin_top = 32.0
+margin_right = 42.0
+margin_bottom = 66.0
+size_flags_horizontal = 6
+custom_fonts/font = SubResource( 1 )
+text = "00:00:00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+self_modulate = Color( 1, 1, 1, 0.129412 )
+margin_right = 175.0
+margin_bottom = 71.0
+grow_vertical = 0
+size_flags_horizontal = 6
+custom_fonts/font = SubResource( 1 )
+text = "MOD BY Xeletron
+PROGRAM BY Rex"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -350.0
+margin_right = 227.0
+margin_bottom = -28.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeisterList" type="VBoxContainer" parent="PanelContainer"]
+margin_right = 195.0
+margin_bottom = 322.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HeisterList"]
+margin_right = 195.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HeisterList/HBoxContainer"]
+margin_right = 47.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="PanelContainer/HeisterList/HBoxContainer"]
+margin_left = 51.0
+margin_top = 25.0
+margin_right = 195.0
+margin_bottom = 39.0
+text = "MyHeisterName12345"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/HeisterList"]
+margin_top = 68.0
+margin_right = 195.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HeisterList/HBoxContainer2"]
+margin_right = 47.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="PanelContainer/HeisterList/HBoxContainer2"]
+margin_left = 51.0
+margin_top = 25.0
+margin_right = 195.0
+margin_bottom = 39.0
+text = "MyHeisterName12345"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/HeisterList"]
+margin_top = 136.0
+margin_right = 195.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HeisterList/HBoxContainer3"]
+margin_right = 47.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="PanelContainer/HeisterList/HBoxContainer3"]
+margin_left = 51.0
+margin_top = 25.0
+margin_right = 195.0
+margin_bottom = 39.0
+text = "MyHeisterName12345"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/HeisterList"]
+margin_top = 204.0
+margin_right = 195.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HeisterList/HBoxContainer4"]
+margin_right = 47.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="PanelContainer/HeisterList/HBoxContainer4"]
+margin_left = 51.0
+margin_top = 25.0
+margin_right = 195.0
+margin_bottom = 39.0
+text = "MyHeisterName12345"
+
+[node name="HSlider" type="HSlider" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -48.0
+margin_right = 282.0
+margin_bottom = -32.0
+max_value = 0.0
+rounded = true
+editable = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TrackerCharacterList" parent="." instance=ExtResource( 7 )]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.0
+margin_bottom = 0.0
+grow_horizontal = 0
+rect_min_size = Vector2( 128, 0 )
+mouse_filter = 2
+
+[node name="LoadingRect" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -56.0
+margin_right = 56.0
+margin_bottom = -8.0
+rect_pivot_offset = Vector2( 24, 24 )
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="LoadingRect"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingRect"]
+autoplay = "start"
+anims/start = SubResource( 3 )
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_timeline_value_changed"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://PlayerCamera.gd" type="Script" id=1]
+
+[node name="Camera" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+current = true
+fov = 100.0
+size = 64.0
+far = 500.0
+
+[node name="Tween" type="Tween" parent="."]
