@@ -51,14 +51,15 @@ func _begin_navgen(files:PoolStringArray, _screen:int):
 		if string.get_extension() in ["generic_xml", "nav_data"]:
 			path = string
 	if path != "":
+		print("BEGIN NAVGEN")
 		_load_nav_data()
 
 
 func _load_nav_data():
 	nav_data = GenericXML.new().load_xml(path)
-	print( JSON.print(nav_data, "\t") )
-	var thing = get_nav_data_to_quads()
-#	$RoomHolder.build_map( thing )
+#	print( JSON.print(nav_data, "\t") )
+	var thing = get_quads()
+	$RoomHolder.build_map( thing )
 
 
 func get_xml_contents(file):
@@ -76,18 +77,18 @@ func save_dict(dict:Dictionary):
 
 
 # room_borders_x_neg
-func get_nav_data_to_quads():
-	yield(get_tree().create_timer(1.0),"timeout")
+func get_quads():
 	for i in nav_data["generic_scriptdata"].keys():
 		print(i)
 	var quads = {}
 	for key in room_quad_keys:
 		var index = 0
-#		for value in nav_data["generic_scriptdata"][key]:
-#			if !quads.has(index):
-#				quads[index] = []
-#			quads[index] = value
-#			index += 1
+		var room = nav_data["generic_scriptdata"][key]
+		for value in room.values():
+			if !quads.has(index):
+				quads[index] = []
+			quads[index].append(value)
+			index += 1
 	return quads
 
 

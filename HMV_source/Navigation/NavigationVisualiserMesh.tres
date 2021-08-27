@@ -12,11 +12,10 @@ void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	ALBEDO = albedo.rgb * albedo_tex.rgb;
-//	Alpha for transparancy
 	ALPHA = albedo.a * albedo_tex.a;
 }
 "
 
 [resource]
 shader = SubResource( 1 )
-shader_param/albedo = Color( 0.356863, 0.458824, 0.737255, 0.498039 )
+shader_param/albedo = Color( 1, 0, 0, 0.470588 )

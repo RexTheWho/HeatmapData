@@ -1,21 +1,23 @@
 extends Node
-
-func _ready():
-	if get_tree().connect("files_dropped", self, "test_dragged_file") == OK:
-		print("Ready to go!")
-
-
-func test_dragged_file(files, _screen):
-	print(files)
-	var result = load_xml(files[0])
-	yield(get_tree().create_timer(1),"timeout")
-	print( JSON.print(result, "\t") )
+#
+#func _ready():
+#	if get_tree().connect("files_dropped", self, "test_dragged_file") == OK:
+#		print("Ready to go!")
+#
+#
+#func test_dragged_file(files, _screen):
+#	print(files)
+#	var result = load_xml(files[0])
+#	yield(get_tree().create_timer(1),"timeout")
+#	print( JSON.print(result, "\t") )
 
 
 func load_xml(file):
 	var xml:XMLParser = XMLParser.new()
 	if xml.open(file) == OK:
 		return get_current_table(xml)
+#		while xml.read() == OK:
+#			prints( xml.is_empty(), get_xml_values(xml) )
 	else:
 		push_error("Failed to open XML!")
 
@@ -24,8 +26,8 @@ func load_xml(file):
 var line = 0
 var depth = 0
 func get_current_table(xml:XMLParser):
-	print("\n -- table open -- \n")
-	depth += 1
+#	print("\n -- table open -- \n")
+#	depth += 1
 	var final_table = {}
 	while xml.read() == OK:
 		line += 1
@@ -33,22 +35,22 @@ func get_current_table(xml:XMLParser):
 			
 			var key = get_xml_key(xml)
 			var values = get_xml_values(xml)
-			prints(str(line).pad_zeros(3), str(depth).pad_zeros(3), key, values)
+#			prints(str(line).pad_zeros(3), str(depth).pad_zeros(3), key, values)
 			
-			if values.has("type") and values["type"] == "table":
+			if not xml.is_empty():
 				final_table[key] = get_current_table(xml)
 			
 			elif values.has("value"):
 				# No xml.read() forward here or else it just stacks dictionaries
 				final_table[key] = values["value"]
-			print("didnt break")
+#			print("didnt break")
 		elif xml.get_node_type() == XMLParser.NODE_ELEMENT_END:
 			break
-		else:
-			print("not element start/end")
+#		else:
+#			print("not element start/end")
 	
-	print("\n -- table ended -- \n")
-	depth -= 1
+#	print("\n -- table ended -- \n")
+#	depth -= 1
 	return final_table
 
 

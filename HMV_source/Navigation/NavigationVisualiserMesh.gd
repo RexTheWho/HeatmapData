@@ -22,24 +22,21 @@ var room_data = {
 }
 
 
-func build_map(dict:Dictionary):
+func build_map(room_data:Dictionary):
+	randomize()
 	print("NAVMesh: Building Map Mesh...")
-	room_data = dict
-	
-	var arr_mesh = ArrayMesh.new()
-	
 	for room_id in room_data.keys():
-		var arr = room_data[room_id]["quads"]
+		var arr_mesh = ArrayMesh.new()
+		var arr = room_data[room_id]
 		var cg_mesh:CSGMesh = CSGMesh.new()
 		cg_mesh.material = mat.duplicate()
-		cg_mesh.material.set_shader_param("shader_param/albedo", Color(rand_range(0.25, 0.75), rand_range(0.25, 0.75), rand_range(0.25, 0.75), 0.5))
+		cg_mesh.material.set_shader_param("albedo", Color(rand_range(0.25, 0.75), rand_range(0.25, 0.75), rand_range(0.25, 0.75), 0.2))
 		add_child(cg_mesh)
 		
 		for i in arr.size():
 			if i <= 3:
 				arr[i] = (float(arr[i]) / 10) * nav_multi
 			else:
-#				arr[i] = int(arr[i])
 				arr[i] = (float(arr[i]) - nav_floating) / 100
 		
 		for i in range(2):
