@@ -6,6 +6,7 @@ extends Spatial
 # Bugs: Relatively slow.
 
 const mat = preload("res://Navigation/NavigationVisualiserMesh.tres")
+const nav_segment_node = preload("res://Navigation/NavSegment.tscn")
 const nav_floating = 22.5
 const nav_multi = 2.5
 var room_data = {
@@ -22,23 +23,36 @@ var room_data = {
 }
 
 
-func build_map(room_data:Dictionary):
+func build_map(quads:Dictionary, segments:Dictionary):
+	for i in get_children():i.queue_free()
+	
 	randomize()
+	var _start_time = OS.get_ticks_msec()
+	
+	print("NAVMesh: Building Map Segments...")
+	for pos in segments.values():
+		pos = Vector3( pos.x, pos.z, -pos.y )/100
+		var seg = nav_segment_node.instance()
+		seg.translation = pos
+		add_child(seg)
+	
 	print("NAVMesh: Building Map Mesh...")
-	for room_id in room_data.keys():
+	for room_id in quads.keys():
 		var arr_mesh = ArrayMesh.new()
-		var arr = room_data[room_id]
+		var arr = quads[room_id]
 		var cg_mesh:CSGMesh = CSGMesh.new()
 		cg_mesh.material = mat.duplicate()
 		cg_mesh.material.set_shader_param("albedo", Color(rand_range(0.25, 0.75), rand_range(0.25, 0.75), rand_range(0.25, 0.75), 0.2))
 		add_child(cg_mesh)
 		
+		# Dont touch!
 		for i in arr.size():
 			if i <= 3:
 				arr[i] = (float(arr[i]) / 10) * nav_multi
 			else:
 				arr[i] = (float(arr[i]) - nav_floating) / 100
 		
+		# Dont touch!
 		for i in range(2):
 			var tri = PoolVector3Array()
 			var xn_zn = Vector3(arr[0], arr[4], -arr[2])
@@ -74,3 +88,6 @@ func build_map(room_data:Dictionary):
 			arrays[ArrayMesh.ARRAY_TEX_UV] = uv1
 			arr_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 		cg_mesh.mesh = arr_mesh
+
+	var _end_time = OS.get_ticks_msec()
+	prints("Building took",_end_time - _start_time, "ms")

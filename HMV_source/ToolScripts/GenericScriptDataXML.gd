@@ -56,8 +56,15 @@ func get_current_table(xml:XMLParser):
 
 func get_xml_values(xml:XMLParser):
 	var dict = {}
+	var last_att = ""
 	for i in xml.get_attribute_count():
-		dict[xml.get_attribute_name(i)] = xml.get_attribute_value(i)
+		var att_name = xml.get_attribute_name(i)
+		var att = xml.get_attribute_value(i)
+		if att_name == "value" and last_att == "vector3":
+			last_att = ""
+			att = str2var("Vector3("+att.replace(" ", ",")+")")
+		dict[att_name] = att
+		last_att = att
 	return dict
 
 
