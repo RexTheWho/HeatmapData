@@ -26,3 +26,5 @@ axis = 1
 texture = ExtResource( 2 )
 
 [node name="CameraOrtho" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3, 0 )
+projection = 1

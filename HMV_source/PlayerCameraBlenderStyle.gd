@@ -49,23 +49,25 @@ func _unhandled_input(event):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		var mouse_motion = event.get_relative() * move_sensitivity
 		if event.get_shift():
-			var movx = rot_ref.transform.basis.xform(Vector3(mouse_motion.x, -mouse_motion.y, 0.0)/2)
-			translate(movx)
+			var offset = Vector3.ZERO
+			if is_perspective():
+				offset = rot_ref.transform.basis.xform(Vector3(mouse_motion.x, -mouse_motion.y, 0.0)/2)
+			else:
+				offset = Vector3(mouse_motion.x, 0.0, mouse_motion.y)/2
+			translate(offset)
 		
 		elif event.get_control():
 			set_camera_zoom(mouse_motion.y)
 		
 		elif event.get_alt():
-			print("ALT MODE")
 			#Poorly functioning ortho mode
-#			var direct_mouse = event.get_relative()
-#			var flick_resistance = 50
-#			if direct_mouse.y > flick_resistance:
-#				print(">>>>>>> FLICK Y")
-#				if is_perspective():
-#					set_ortho_direction(Vector3.DOWN)
-#				else:
-#					set_ortho_direction(false)
+			var direct_mouse = event.get_relative()
+			var flick_resistance = 50
+			if abs(direct_mouse.y) > flick_resistance:
+				if direct_mouse.y > flick_resistance:
+					set_ortho_direction(Vector3.DOWN)
+				else:
+					set_ortho_direction(false)
 		
 		else:
 			cam_y.rotation_degrees.y -= mouse_motion.x
@@ -86,13 +88,14 @@ func set_camera_zoom(zoom):
 	else:
 		start += zoom
 	cam_persp.translation.z = clamp(start, 0, 100)
+	cam_ortho.size = clamp(start, 0, 100)
 
 
 func set_ortho_direction(direction):
 	if direction:
 		cam_ortho.current = true
 		cam_persp.current = false
-		cam_ortho.look_at(direction, Vector3.UP)
+#		cam_ortho.look_at(direction, Vector3.UP)
 	else:
 		cam_ortho.current = false
 		cam_persp.current = true
