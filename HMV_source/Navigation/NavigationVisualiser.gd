@@ -3,22 +3,9 @@ extends Spatial
 
 # Description: Generate and visualise navigation from a level.
 # Mechanics: load nav data from drag and drop.
-# Bugs: TBA.
+# Bugs: Transparancy layering is iffy at best. The nodes child index might be what decides it rather than the translation?
 
 const GenericXML = preload("res://ToolScripts/GenericScriptDataXML.gd")
-
-
-#func _ready():
-#	if get_tree().connect("files_dropped", self, "_begin_navgen") == OK:
-#		print("Ready to go!")
-
-
-#func _begin_navgen(files:PoolStringArray, _screen:int):
-#	for i in files:
-#		var path:String = i
-#		if path.get_extension() in ["generic_xml", "nav_data"]:
-#			print("BEGIN NAVGEN")
-#			load_nav_data(path)
 
 
 func load_nav_data(path):

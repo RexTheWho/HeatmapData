@@ -57,9 +57,9 @@ func play_frame(frame_data:Array, ignore_interp:bool):
 			var pos = Vector3( my_data[1], my_data[3], -my_data[2] )/100
 			var rot = Vector3( 0, my_data[4], 0 ) # Rotations need to be lerped properly!
 			var dir_node = $Direction
-			if abs(rot.y - dir_node.rotation_degrees.y) > 180:
-				var dif = rot.y - dir_node.rotation_degrees.y
-				rot.y -= dif
+#			if abs(rot.y - dir_node.rotation_degrees.y) > 180:
+#				var dif = rot.y - dir_node.rotation_degrees.y
+#				rot.y -= dif
 			
 			if ignore_interp or !visible:
 				visible = true
@@ -71,7 +71,8 @@ func play_frame(frame_data:Array, ignore_interp:bool):
 				if translation != pos:
 					tween.interpolate_property( self, "translation", translation, pos, delay)
 				if dir_node.rotation_degrees != rot:
-					tween.interpolate_property( dir_node, "rotation_degrees", dir_node.rotation_degrees, rot, delay)
+#					tween.interpolate_property( dir_node, "rotation_degrees", dir_node.rotation_degrees, rot, delay)
+					dir_node.rotation_degrees = rot
 				tween.start()
 		else:
 			print("TrackerCharacter: Character ID " + str(character_id) + " no longer exists in frame data, Freeing.")

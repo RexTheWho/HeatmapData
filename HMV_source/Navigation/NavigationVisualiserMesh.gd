@@ -109,7 +109,7 @@ func _build_quads(arr:Array):
 		else:
 			arr[i] = (float(arr[i]) - nav_floating) / 100
 	
-	# Dont touch!
+	# Dont touch! Ok maybe a little, could be more optimised in future.
 	for i in range(2):
 		var tri = PoolVector3Array()
 		var xn_zn = Vector3(arr[0], arr[4], -arr[2])
