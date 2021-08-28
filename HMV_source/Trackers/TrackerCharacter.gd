@@ -14,9 +14,11 @@ var character_classes = {}
 var tracker_index = 0
 var character_id
 var character_class = "none"
+var character_group = "none"
 
 var frame_time = 1.0
 var prep_for_removal = false
+var connected_trackers = []
 
 
 func _init():
@@ -27,6 +29,20 @@ func _init():
 func _ready():
 	self.visible = false
 	$Height/Status.connect_status_tracker(self)
+
+
+func _process(delta):
+	var idx = 0
+	for tracker in connected_trackers:
+		var line = $TrackerLines.get_child(idx)
+		if is_instance_valid(tracker) and is_instance_valid(line):
+			line.translation = lerp(translation, tracker.translation, 0.5) - translation
+			line.look_at(tracker.translation, Vector3.UP)
+			line.rotation_degrees += Vector3(90,0,0)
+			line.height = translation.distance_to(tracker.translation)
+		elif is_instance_valid(line):
+			line.queue_free()
+		idx += 1
 
 
 func play_frame(frame_data:Array, ignore_interp:bool):
@@ -68,25 +84,30 @@ func play_frame(frame_data:Array, ignore_interp:bool):
 
 func set_character(char_data):
 	character_id = char_data[0]
-	var tid = get_parent().get_header_character(char_data[-1])
+	var tid = get_parent().get_header_stringdex(char_data[5]) # -1 was problematic after adding group id
 	if characters.has(tid):
 		character_class = characters[tid]
 	else:
 		character_class = tid
+	
+	if char_data.size() > 6:
+		character_group = get_parent().get_header_stringdex(char_data[6])
 	
 	Console.log(["TrackerCharacter: set character", character_id, character_class])
 	
 	var character_icon = "res://Textures/Characters/character_icon_{character_id}.png".format({"character_id":character_class})
 	
 	if CharDB.is_heister(character_class):
+		character_group = "payday_gang"
 		$Hitbox.add_to_group("player")
 		_add_player_hud()
 		var player_index = get_parent().get_header_heister_index(character_class)
-		Console.log(["????????????????????? PLAYER INDEX", player_index])
 		set_trail_color(CharDB.chardb.peer_colors[clamp(player_index, 0, 4)])
+	
 	elif CharDB.is_civilian(character_class):
 		$Hitbox.add_to_group("civilian")
 		set_trail_color(CharDB.chardb.peer_colors[6])
+	
 	else:
 		$Hitbox.add_to_group("enemy")
 		set_trail_color(CharDB.chardb.peer_colors[5])
@@ -132,6 +153,28 @@ func _on_hitbox_input_event(_camera, _event, _click_position, _click_normal, _sh
 	if Input.is_action_just_pressed("track"):
 		Console.log(["TRACK!", self])
 		SignalManager.track_object(self)
+		var partners = get_parent().get_character_group_partners(character_group)
+		prints(self, "MY GROUP ID", character_group)
+		prints(self, "MY TWEAK ID", character_class)
+		prints(self, "MY PARNERS:", partners)
+		_track_partners(partners)
+
+
+func _track_partners(partners:Array):
+	connected_trackers = []
+	for unit in partners:
+		if unit != self:
+			connected_trackers.append(unit)
+			var new_line:CSGCylinder = CSGCylinder.new()
+			new_line.radius = 0.02
+			$TrackerLines.add_child(new_line)
+
+
+func _stopped_tracking():
+	print(">>>>>>STOPPED TRACKING!!!")
+	connected_trackers = []
+	for i in $TrackerLines.get_children():
+		i.queue_free()
 
 
 func set_status(status_id:String, status_duration = false):

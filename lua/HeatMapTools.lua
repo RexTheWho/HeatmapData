@@ -10,7 +10,7 @@ _G.HeatMap = _G.HeatMap or {
 	track_path = "",
 	heist_started = false,
 	track_header = {},
-	track_characters = {},
+	stringdex = {},
 	track_frames = {},
 	frame_events = {},
 	units_to_track = {}
@@ -92,7 +92,7 @@ function HeatMap:SaveTrackData()
 	end
 	
 	if file then
-		HeatMap.track_header.characters = HeatMap.track_characters
+		HeatMap.track_header.stringdex = HeatMap.stringdex
 		if HeatMap.track_save_per_frame == false then
 			HeatMap.track_header.frame_total = #HeatMap.track_frames
 			HeatMap:Append(json.encode(HeatMap.track_header), true)
@@ -105,7 +105,7 @@ function HeatMap:SaveTrackData()
 		log("PDHeat: Saved track data!")
 		file:close()
 		HeatMap.track_header = {}
-		HeatMap.track_characters = {}
+		HeatMap.stringdex = {}
 		HeatMap.track_frames = {}
 	else
 		log("PDHeat: Failed to save tracking data!")
@@ -186,11 +186,15 @@ end
 
 
 -- Tracklist
-function HeatMap:get_tracklist_id(character)
-	for i, value in ipairs(HeatMap.track_characters) do
+function HeatMap:GetTrackListID(character)
+	for i, value in ipairs(HeatMap.stringdex) do
 		if value == character then
 			return i-1
 		end
 	end
 	return false
 end
+
+
+
+

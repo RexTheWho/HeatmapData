@@ -143,4 +143,6 @@ gravity = Vector3( 0, 0, 0 )
 scale_amount = 0.1
 color_ramp = SubResource( 6 )
 
+[node name="TrackerLines" type="Spatial" parent="."]
+
 [connection signal="input_event" from="Hitbox" to="." method="_on_hitbox_input_event"]

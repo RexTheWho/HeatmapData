@@ -83,10 +83,10 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				end
 				
 				local heister = data.name
-				local tweak_id = HeatMap:get_tracklist_id(heister)
+				local tweak_id = HeatMap:GetTrackListID(heister)
 				if not tweak_id then
-					tweak_id = #HeatMap.track_characters
-					table.insert(HeatMap.track_characters, heister)
+					tweak_id = #HeatMap.stringdex
+					table.insert(HeatMap.stringdex, heister)
 				end
 				
 				local char_data = {data.unit:id(), math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
@@ -101,15 +101,29 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			local pos = data.unit:position()
 			local rot = data.unit:rotation()
 			local id = data.unit:id()
-			local tweak = data.unit:base()._tweak_table
-			local tweak_id = HeatMap:get_tracklist_id(tweak)
 			
+			-- Tweakdata
+			local tweak = data.unit:base()._tweak_table
+			local tweak_id = HeatMap:GetTrackListID(tweak)
 			if not tweak_id then
-				tweak_id = #HeatMap.track_characters
-				table.insert(HeatMap.track_characters, tweak)
+				tweak_id = #HeatMap.stringdex
+				table.insert(HeatMap.stringdex, tweak)
 			end
 			
-			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
+			-- Ai Group
+			local grp = nil
+			local grp_id = nil
+			if data.group and data.group.id then
+				grp = data.group.id
+				grp_id = HeatMap:GetTrackListID(grp)
+				if not grp_id then
+					grp_id = #HeatMap.stringdex
+					table.insert(HeatMap.stringdex, grp)
+				end
+			end
+			
+			-- Save
+			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id, grp_id}
 			table.insert(characters, char_data)
 		end
 		
@@ -120,11 +134,11 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			local rot = data.unit:rotation()
 			local id = data.unit:id()
 			local tweak = data.unit:base()._tweak_table
-			local tweak_id = HeatMap:get_tracklist_id(tweak)
+			local tweak_id = HeatMap:GetTrackListID(tweak)
 			
 			if not tweak_id then
-				tweak_id = #HeatMap.track_characters
-				table.insert(HeatMap.track_characters, tweak)
+				tweak_id = #HeatMap.stringdex
+				table.insert(HeatMap.stringdex, tweak)
 			end
 			
 			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}

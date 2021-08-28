@@ -19,7 +19,10 @@ func _ready():
 
 
 func _track_object(object = null):
-	prints("PCBS: Tracking", object)
+	if is_instance_valid(tracking):
+		prints("PCBS: Stopped Tracking", tracking)
+		tracking._stopped_tracking()
+	prints("PCBS: Started Tracking", object)
 	tracking = object
 
 
@@ -30,6 +33,9 @@ func _process(_delta):
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("track") and tracking != null:
+		if is_instance_valid(tracking):
+			prints("PCBS: Stopped Tracking", tracking)
+			tracking._stopped_tracking()
 		tracking = null
 	
 	if Input.is_action_just_pressed("zoom_in"):

@@ -173,7 +173,7 @@ func _use_frame():
 		Console.log(["Failed to play, Recording timeline was completely empty!"], Color.red)
 
 
-# [uID, X, Y, Z, R, tID]
+# [uID, X, Y, Z, R, tID, gID]
 func _character_group(data:Array):
 	if !data.empty():
 		for char_data in data:
@@ -196,6 +196,7 @@ func _misc_group_units(data:Array):
 				if tracker:
 					current_units[unit[0]] = tracker
 					Console.log(["Adding missing unit:", unit[0]], Color.green)
+
 
 func _event_group(data:Array):
 	if !data.empty():
@@ -268,7 +269,8 @@ func add_tracker_character(char_data):
 		tracker.set_frame_time(recording_header["update_delay"])
 		
 		var uid = char_data[0]
-		var tid = recording_header.characters[char_data[-1]]
+		var tid = recording_header["stringdex"][char_data[5]] # -1 was problematic after adding group id
+	
 		current_characters[uid] = tracker
 		Console.log(["TrackerNodeHolder: Added", tid, "of ID", uid], Color.green)
 	else:
@@ -431,11 +433,11 @@ func _event_gage_pack(event):
 		add_child(gage)
 
 
-func get_header_character(i):
-	return recording_header.characters[i]
+func get_header_stringdex(i:int):
+	return recording_header["stringdex"][i]
 
 
-func get_header_character_index(id):
+func get_header_stringdex_index(id):
 	var key_idx = 0
 	for key in CharDB.chardb.characters.keys():
 		if CharDB.chardb.characters[key] == id:
@@ -452,9 +454,19 @@ func get_header_heister_index(id):
 	return temp_team_index - 1
 
 
-
 func get_header_level_id():
 	if recording_header.has("level_id"):
 		return recording_header["level_id"]
 	else:
 		return null
+
+
+func get_character_group_partners(group_id:String):
+	var partners = []
+	for unit in current_characters.values():
+		if unit.character_group != "none" and unit.character_group == group_id:
+			partners.append(unit)
+	return partners
+
+
+
