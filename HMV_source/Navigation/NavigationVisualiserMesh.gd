@@ -6,7 +6,7 @@ extends Spatial
 # Bugs: Relatively slow.
 
 const toggle_script = preload("res://Navigation/ToggleVisibleKeybind.gd")
-const mat = preload("res://Navigation/NavigationVisualiserMesh.tres")
+const mat = preload("res://Materials/NavigationVisualiserMesh.tres")
 const mat_cheap = preload("res://Materials/basic_nav_door_cheap.tres")
 const nav_segment_node = preload("res://Navigation/NavSegment.tscn")
 const nav_floating = 22.5
