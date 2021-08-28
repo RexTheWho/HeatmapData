@@ -1,1 +1,1 @@
-Missing icon for res://Textures/Characters/character_icon_tac_swat_rifle_flank1.png
+Missing icon for res://Textures/Characters/character_icon_sniper.png
