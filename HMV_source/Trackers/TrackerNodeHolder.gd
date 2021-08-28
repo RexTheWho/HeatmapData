@@ -41,10 +41,16 @@ var cameras = {}
 
 func _input(event):
 	if event.is_action_pressed("skip"):
-		frame_current = clamp(frame_current + 25, 0, frame_max)
-	elif event.is_action_pressed("skip_back"):
-		frame_current = clamp(frame_current - 25, 0, frame_max)
-	elif event.is_action_pressed("pause_timer"):
+		Engine.time_scale = 4.0
+	elif event.is_action_released("skip"):
+		Engine.time_scale = 1.0
+	
+	if event.is_action_pressed("skip_back"):
+		Engine.time_scale = 0.25
+	elif event.is_action_released("skip_back"):
+		Engine.time_scale = 1.0
+	
+	if event.is_action_pressed("pause_timer"):
 		if $Timer.paused:
 			$Timer.set_paused(false)
 		else:
@@ -392,7 +398,10 @@ func _event_ammo_clip(event):
 		current_units.ammoclips.erase(event[1])
 	else:
 		var ammoclip = $Resources.get_resource("AmmoClip").instance()
-		ammoclip.translation = Vector3( event[2], event[4], -event[3] )/100
+		if event.size() > 2:
+			ammoclip.translation = Vector3( event[2], event[4], -event[3] )/100
+		else:
+			_event_ammo_clip_remove(event[1])
 		ammoclip.rotation_degrees.y = rand_range(0, 360)
 		current_units.ammoclips[event[1]] = ammoclip
 		add_child(ammoclip)
@@ -401,9 +410,12 @@ func _event_ammo_clip(event):
 			for id in current_units.ammoclips.keys():
 				if id < lowest_pickup:
 					lowest_pickup = id
-			current_units["ammoclips"][lowest_pickup].queue_free()
-			current_units.ammoclips.erase(lowest_pickup)
-			prints("REMOVED AMMOCLIP BECAUSE OF LIMIT", lowest_pickup)
+			_event_ammo_clip_remove(lowest_pickup)
+
+func _event_ammo_clip_remove(id):
+	if current_units["ammoclips"].has(id):
+		current_units["ammoclips"][id].queue_free()
+		current_units.ammoclips.erase(id)
 
 
 func _event_gage_pack(event):

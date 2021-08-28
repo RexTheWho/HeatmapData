@@ -1,1 +1,0 @@
-Missing icon for res://Textures/Characters/character_icon_sniper.png

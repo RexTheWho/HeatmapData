@@ -11,7 +11,9 @@ var dots = []
 
 func setup(type, number):
 	uitype = type
-	texture = load("res://Textures/Equipment/{type}.png".format({"type":type}))
+	var tex = load("res://Textures/Equipment/{type}.png".format({"type":type}))
+	if tex:
+		texture = tex
 
 
 func _ready():

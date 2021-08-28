@@ -102,9 +102,11 @@ func _tracking_movement(delta):
 			speed = (distance / tracking_zoom * -zoomspeed * delta)
 		translation.x = lerp(translation.x, trnz_b.x, speed)
 		translation.z = lerp(translation.z, trnz_b.y, speed)
-		translation.y = lerp(translation.y, tracking.translation.y + (tracking_zoom/2), zoomspeed * 3 * delta)
+#		translation.y = lerp(translation.y, tracking.translation.y + (tracking_zoom/2), zoomspeed * 3 * delta)
 		
 		look_at(tracking.translation, Vector3.UP)
 		$Camera.rotation_degrees.x = rotation_degrees.x - (tracking_zoom*0.5)
 		rotation_degrees.x = 0
 		rotation_degrees.z = 0
+
+

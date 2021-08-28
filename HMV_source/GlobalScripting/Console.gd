@@ -1,9 +1,12 @@
 extends Node
 
 const frames = ["+---", "-+--", "--+-", "---+", "--+-", "-+--"]
+const valid_commands = ["help", "bind", "unbind_all"]
+
 var num = 0
 var console_bg:ColorRect
 var console_label:RichTextLabel
+var console_input:LineEdit
 
 func _ready():
 	build_console()
@@ -62,6 +65,45 @@ func build_console():
 	console_label = label
 	vbox.add_child(label)
 	
-	var inputlabel = TextEdit.new()
-	inputlabel.rect_min_size.y = 28
-	vbox.add_child(inputlabel)
+	var inputlabel = LineEdit.new()
+	if inputlabel.connect("gui_input", self, "_input_label_event", []) == OK:
+		inputlabel.rect_min_size.y = 28
+		console_input = inputlabel
+		vbox.add_child(inputlabel)
+
+
+func _input_label_event(event:InputEvent):
+	if event is InputEventKey and event.is_pressed() and event.scancode == KEY_ENTER:
+		var first_split = console_input.text.find(" ")
+		var command = console_input.text
+		if first_split != -1:
+			command = command.left(first_split)
+		var arguments = console_input.text.right(console_input.text.find(" ")+1)
+		if command in valid_commands:
+			_input_command(command, arguments)
+			console_input.text = ""
+			self.log(["Note: commands currently are non-functional!"], Color.orangered)
+		else:
+			self.log(["Invalid command",command,"!"], Color.red)
+
+func _input_command(command:String, arguments:String):
+	if command:
+		var args = ["test1", "test2"]
+		call("_run_command_" + command, args)
+
+
+func _run_command_help(args:Array):
+	var coms = ""
+	for command_id in valid_commands:
+		coms +=  "\n" + "\t" + command_id
+	self.log(["Valid commands:",coms], Color.lightskyblue)
+
+
+func _run_command_bind(args:Array):
+	self.log(["Rebinding",args[0],"to",args[1]], Color.lightskyblue)
+
+
+func _run_command_unbind_all(args:Array):
+	self.log(["Unbound all keys... why tho?"], Color.lightskyblue)
+
+

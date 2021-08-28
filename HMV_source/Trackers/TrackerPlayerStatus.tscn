@@ -145,7 +145,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "status_fade"
 length = 0.2
 tracks/0/type = "value"
@@ -232,7 +232,7 @@ script = ExtResource( 1 )
 autoplay = "start"
 anims/armor_break = SubResource( 1 )
 anims/start = SubResource( 2 )
-anims/status_fade = SubResource( 5 )
+anims/status_fade = SubResource( 3 )
 anims/status_update = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -241,11 +241,15 @@ anims/status_update = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="StatusMain" type="Sprite3D" parent="Spatial"]
+transform = Transform( 0.9744, 0, 0, 0, 0.9744, 0, 0, 0, 0.9744, 0, 0, 0 )
+visible = false
+opacity = 0.9744
 billboard = 1
 texture = ExtResource( 2 )
 
 [node name="StatusArmor1" type="Sprite3D" parent="Spatial"]
 transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+visible = false
 offset = Vector2( 0, -100 )
 opacity = 0.0
 pixel_size = 0.006
@@ -254,6 +258,7 @@ texture = ExtResource( 4 )
 
 [node name="StatusArmor2" type="Sprite3D" parent="Spatial"]
 transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+visible = false
 offset = Vector2( 0, -100 )
 opacity = 0.0
 pixel_size = 0.006

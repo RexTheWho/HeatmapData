@@ -60,6 +60,12 @@ func _status_update(status, duration):
 		_clear_status()
 
 
+func _status_over():
+	_clear_status()
+
+
 func _clear_status():
 	$AnimationPlayer.play("status_fade")
 	current_status = null
+
+
