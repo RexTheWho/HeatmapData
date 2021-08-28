@@ -1,6 +1,13 @@
 extends StaticBody
 
 
+var keybind = KEY_1
+
+
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == keybind:
+			visible = !visible
 
 
 func _on_input_event(camera, event:InputEventMouseButton, click_position, click_normal, shape_idx):

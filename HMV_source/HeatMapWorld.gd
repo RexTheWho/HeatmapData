@@ -13,13 +13,13 @@ func _ready():
 
 func _files_dropped(files:PoolStringArray, _screen:int):
 	for i in files:
-		var string:String = i
-		if string.get_extension() in ["generic_xml", "nav_data"]:
-			track_path = string
-		track_path = string
-		print( _read_header(track_path) )
-	if track_path != "":
-		prints("HeatMapWorld:", track_path)
+		var file:String = i
+		if file.get_extension() == "pdheat":
+			$TrackerNodeHolder.generate_recording(file)
+			#C:\Program Files (x86)\Steam\steamapps\common\PAYDAY 2\mods\HeatmapData\records\2021-08-28_16_08_13_arm_hcm.pdheat
+			#C:\Program Files (x86)\Steam\steamapps\common\PAYDAY 2\mods\HeatmapData\nav_data\arm_hcm.nav_data
+			var nav_file = file.left(file.find_last("\\")).replace("records", "nav_data\\") + $TrackerNodeHolder.get_header_level_id() + ".nav_data"
+			$NavigationVisualiser.load_nav_data(nav_file)
 
 
 func _read_header(heatmap_file):

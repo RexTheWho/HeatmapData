@@ -68,4 +68,6 @@ func _use_ring_duration(amount):
 	ring.visible = true
 	ring.max_value = amount
 	tween.interpolate_property(ring, "value", amount, 0, amount)
+	tween.interpolate_property(ring, "self_modulate", self_modulate, Color(1.0, 1.0, 1.0, 0.0), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, amount)
+	tween.interpolate_property(self, "self_modulate", self_modulate, Color(1.0, 1.0, 1.0, 0.5), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, amount) #ECM run dry
 	tween.start()

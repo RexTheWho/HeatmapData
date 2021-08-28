@@ -3,7 +3,7 @@
 [ext_resource path="res://Interface/TrackerDeployableUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Trackers/TrackerDeployable.gd" type="Script" id=2]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "fade"
 length = 0.25
 step = 0.05
@@ -46,7 +46,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "spawn"
 step = 0.05
 tracks/0/type = "value"
@@ -74,7 +74,7 @@ tracks/1/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="ViewportTexture" id=1]
+[sub_resource type="ViewportTexture" id=3]
 flags = 4
 viewport_path = NodePath("Viewport")
 
@@ -83,8 +83,8 @@ script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
-anims/fade = SubResource( 2 )
-anims/spawn = SubResource( 3 )
+anims/fade = SubResource( 1 )
+anims/spawn = SubResource( 2 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 64, 64 )
@@ -99,4 +99,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 flip_v = true
 pixel_size = 0.015
 billboard = 1
-texture = SubResource( 1 )
+texture = SubResource( 3 )

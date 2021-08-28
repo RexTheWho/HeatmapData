@@ -16,7 +16,6 @@ const minimum_safe_frames = 50
 
 var thread_frameload:Thread
 var playing_heatmap = false
-var heatmap_file = ""
 var frame_current = 0
 var frame_max = 0
 
@@ -35,9 +34,9 @@ var current_units = {}
 var waypoints = {}
 var cameras = {}
 
-func _ready():
-	if get_tree().connect("files_dropped", self, "_generate_recording") == OK:
-		print("Ready to go!")
+#func _ready():
+#	if get_tree().connect("files_dropped", self, "_generate_recording") == OK:
+#		print("Ready to go!")
 
 
 func _input(event):
@@ -45,19 +44,23 @@ func _input(event):
 		frame_current = clamp(frame_current + 25, 0, frame_max)
 	elif event.is_action_pressed("skip_back"):
 		frame_current = clamp(frame_current - 25, 0, frame_max)
+	elif event.is_action_pressed("pause_timer"):
+		if $Timer.paused:
+			$Timer.set_paused(false)
+		else:
+			$Timer.set_paused(true)
 
 
-func _generate_recording(files:PoolStringArray, _screen:int):
-	heatmap_file = ""
-	for i in files:
-		var string:String = i
-		if string.get_extension() == "pdheat":
-			heatmap_file = string
-	if heatmap_file != "":
-		_load_recording()
+func _generate_recording(files:PoolStringArray, _i:int):
+	generate_recording(files[0])
 
 
-func _load_recording():
+func generate_recording(file:String):
+	if file.get_extension() == "pdheat":
+		_load_recording(file)
+
+
+func _load_recording(heatmap_file):
 	_reset_data()
 	var file = File.new()
 	if file.open(heatmap_file, File.READ) == OK:
@@ -435,3 +438,11 @@ var temp_team_index = 0
 func get_header_heister_index(id):
 	temp_team_index = clamp(temp_team_index + 1, 0, 5)
 	return temp_team_index - 1
+
+
+
+func get_header_level_id():
+	if recording_header.has("level_id"):
+		return recording_header["level_id"]
+	else:
+		return null
