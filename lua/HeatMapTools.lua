@@ -13,7 +13,9 @@ _G.HeatMap = _G.HeatMap or {
 	stringdex = {},
 	track_frames = {},
 	frame_events = {},
-	units_to_track = {}
+	units_to_track = {},
+	
+	characters_last_known_xyzr = {}
 }
 
 
@@ -107,6 +109,7 @@ function HeatMap:SaveTrackData()
 		HeatMap.track_header = {}
 		HeatMap.stringdex = {}
 		HeatMap.track_frames = {}
+		HeatMap.characters_last_known_xyzr = {}
 	else
 		log("PDHeat: Failed to save tracking data!")
 	end
@@ -194,6 +197,28 @@ function HeatMap:GetTrackListID(character)
 	end
 	return false
 end
+
+
+function HeatMap:SetLastKnownPosition(unit_id, x, y, z, r)
+	HeatMap.characters_last_known_xyzr[unit_id] = {math.round(x), math.round(y), math.round(z), math.round(r)}
+end
+
+
+function HeatMap:GetLastKnownPosition(unit_id)
+	for key, values in pairs(HeatMap.characters_last_known_xyzr) do
+		if key == unit_id then
+			return values
+		end
+	end
+	return false
+end
+
+
+
+
+
+
+
 
 
 
