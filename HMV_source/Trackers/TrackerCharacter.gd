@@ -40,33 +40,34 @@ func _process(delta):
 
 func play_frame(frame_data:Array, ignore_interp:bool):
 	if !prep_for_removal:
-		var my_data
+		var my_data:Array
 		for i in frame_data[tracker_index]:
 			if str(i[0]) == str(character_id):
 				my_data = i
 				break
 		
 		if my_data:
-			var pos = Vector3( my_data[1], my_data[3], -my_data[2] )/100
-			var rot = Vector3( 0, my_data[4], 0 ) # Rotations need to be lerped properly!
-			var dir_node = $Direction
-#			if abs(rot.y - dir_node.rotation_degrees.y) > 180:
-#				var dif = rot.y - dir_node.rotation_degrees.y
-#				rot.y -= dif
-			
-			if ignore_interp or !visible:
-				visible = true
-				translation = pos
-				dir_node.rotation_degrees = rot
-			else:
-				var tween = $Tween
-				var delay = frame_time
-				if translation != pos:
-					tween.interpolate_property( self, "translation", translation, pos, delay)
-				if dir_node.rotation_degrees != rot:
-#					tween.interpolate_property( dir_node, "rotation_degrees", dir_node.rotation_degrees, rot, delay)
+			if my_data.size() > 1:
+				var pos = Vector3( my_data[1], my_data[3], -my_data[2] )/100
+				var rot = Vector3( 0, my_data[4], 0 ) # Rotations need to be lerped properly!
+				var dir_node = $Direction
+	#			if abs(rot.y - dir_node.rotation_degrees.y) > 180:
+	#				var dif = rot.y - dir_node.rotation_degrees.y
+	#				rot.y -= dif
+				
+				if ignore_interp or !visible:
+					visible = true
+					translation = pos
 					dir_node.rotation_degrees = rot
-				tween.start()
+				else:
+					var tween = $Tween
+					var delay = frame_time
+					if translation != pos:
+						tween.interpolate_property( self, "translation", translation, pos, delay)
+					if dir_node.rotation_degrees != rot:
+	#					tween.interpolate_property( dir_node, "rotation_degrees", dir_node.rotation_degrees, rot, delay)
+						dir_node.rotation_degrees = rot
+					tween.start()
 		else:
 			print("TrackerCharacter: Character ID " + str(character_id) + " no longer exists in frame data, Freeing.")
 			emit_signal("missing_character", character_id)
