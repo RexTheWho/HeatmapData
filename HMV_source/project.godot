@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 Console="*res://GlobalScripting/Console.gd"
 CharDB="*res://GlobalScripting/CharDB.gd"
 SignalManager="*res://GlobalScripting/SignalManager.gd"
+VisibilityManager="*res://GlobalScripting/VisibilityManager.gd"
 
 [input]
 

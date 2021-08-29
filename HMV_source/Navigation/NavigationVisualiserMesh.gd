@@ -67,8 +67,8 @@ func _build_door(arr:Array):
 	
 	var doorframe:CSGCylinder = CSGCylinder.new()
 	doorframe.set_script(toggle_script)
-	doorframe.set("keybind", KEY_3)
-	doorframe.visible = false
+	doorframe.set_vis_id("nav_doors")
+	doorframe.visible = VisibilityManager.is_visible("nav_doors")
 	doorframe.material = mat_cheap
 	doorframe.translation = lerp(pos_high, pos_low, 0.5)
 	doorframe.sides = 3
@@ -83,8 +83,8 @@ func _build_door(arr:Array):
 func _build_segment(segment_data):
 	var pos = Vector3( segment_data.x, segment_data.z, -segment_data.y )/100
 	var seg = nav_segment_node.instance()
-	seg.set("keybind", KEY_1)
-	seg.visible = false
+	seg.set_vis_id("nav_segments")
+	seg.visible = VisibilityManager.is_visible("nav_segments")
 	seg.translation = pos
 	add_child(seg)
 #	return seg
@@ -97,7 +97,8 @@ func _build_quads(arr:Array):
 	var arr_mesh = ArrayMesh.new()
 	var cg_mesh:CSGMesh = CSGMesh.new()
 	cg_mesh.set_script(toggle_script)
-	cg_mesh.set("keybind", KEY_2)
+	cg_mesh.set_vis_id("nav_quads")
+	cg_mesh.visible = VisibilityManager.is_visible("nav_quads")
 	cg_mesh.material = mat.duplicate()
 	cg_mesh.material.set_shader_param("albedo", rand_quad_color(0.4))
 	add_child(cg_mesh)

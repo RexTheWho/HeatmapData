@@ -9,12 +9,16 @@ signal frame_event(event_id)
 
 signal camera_track_object(object)
 
+signal camera_perspective_mode(mode)
 
+
+# Fast signal connect
 func simple_connect(from:Object, to:Object, signal_id:String, method:String, items:Array):
 	if from.connect(signal_id, to, method, items) != OK:
 		push_warning("SignalManager: Failed to simple connect " + signal_id + " from " + str(from))
 
 
+# For frame events only!
 func connect_listener(to:Object, method:String, items = []):
 	if self.connect("frame_event", to, method, items) != OK:
 		push_warning("SignalManager: Failed to simple connect " + method)

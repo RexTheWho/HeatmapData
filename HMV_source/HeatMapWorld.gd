@@ -22,6 +22,7 @@ func _files_dropped(files:PoolStringArray, _screen:int):
 			$TrackerNodeHolder.generate_recording(file)
 			var nav_file = file.left(file.find_last("\\")).replace("records", "nav_data\\") + $TrackerNodeHolder.get_header_level_id() + ".nav_data"
 			$NavigationVisualiser.load_nav_data(nav_file)
+			$IntroUI.queue_free()
 			break
 
 

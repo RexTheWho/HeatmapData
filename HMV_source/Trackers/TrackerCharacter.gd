@@ -8,6 +8,8 @@ signal missing_character(character_id)
 signal status_update(status, duration)
 signal stat_change(stat, value)
 
+const toggle_script = preload("res://Navigation/ToggleVisibleKeybind.gd")
+
 var characters = {}
 var character_classes = {}
 
@@ -29,20 +31,11 @@ func _init():
 func _ready():
 	self.visible = false
 	$Height/Status.connect_status_tracker(self)
+	SignalManager.simple_connect(SignalManager, self, "camera_perspective_mode", "_change_head_scale", [])
 
 
 func _process(delta):
-	var idx = 0
-	for tracker in connected_trackers:
-		var line = $TrackerLines.get_child(idx)
-		if is_instance_valid(tracker) and is_instance_valid(line):
-			line.translation = lerp(translation, tracker.translation, 0.5) - translation
-			line.look_at(tracker.translation, Vector3.UP)
-			line.rotation_degrees += Vector3(90,0,0)
-			line.height = translation.distance_to(tracker.translation)
-		elif is_instance_valid(line):
-			line.queue_free()
-		idx += 1
+	_group_lines_process()
 
 
 func play_frame(frame_data:Array, ignore_interp:bool):
@@ -155,9 +148,6 @@ func _on_hitbox_input_event(_camera, _event, _click_position, _click_normal, _sh
 		Console.log(["TRACK!", self])
 		SignalManager.track_object(self)
 		var partners = get_parent().get_character_group_partners(character_group)
-		prints(self, "MY GROUP ID", character_group)
-		prints(self, "MY TWEAK ID", character_class)
-		prints(self, "MY PARNERS:", partners)
 		_track_partners(partners)
 
 
@@ -168,11 +158,13 @@ func _track_partners(partners:Array):
 			connected_trackers.append(unit)
 			var new_line:CSGCylinder = CSGCylinder.new()
 			new_line.radius = 0.02
+			new_line.set_script(toggle_script)
+			new_line.set_vis_id("group_lines")
+			new_line.visible = VisibilityManager.is_visible("group_lines")
 			$TrackerLines.add_child(new_line)
 
 
 func _stopped_tracking():
-	print(">>>>>>STOPPED TRACKING!!!")
 	connected_trackers = []
 	for i in $TrackerLines.get_children():
 		i.queue_free()
@@ -186,4 +178,45 @@ func _add_player_hud():
 	Console.log(["TrackerCharacter: Applying player hud elements."])
 	$TrackerBase.visible = false
 	var hud = load("res://Trackers/TrackerCharacterPlayerHUD.tscn").instance()
+	hud.name = "PlayerHud"
 	add_child(hud)
+
+
+func _change_head_scale(mode):
+	if mode == "ortho" and is_using_player_ui():
+		$Height.translation.y = 0.0
+		$Height/HeadLine.visible = false
+		$Height/HeadDot.visible = false
+		$Height/HeadIcon.scale = Vector3(0.5, 0.5, 0.5)
+	else:
+		$Height.translation.y = 1.0
+		$Height/HeadLine.visible = true
+		$Height/HeadDot.visible = true
+		$Height/HeadIcon.scale = Vector3(1, 1, 1)
+
+
+func _group_lines_process():
+	if VisibilityManager.is_visible("group_lines"):
+		var idx = 0
+		for tracker in connected_trackers:
+			var line = $TrackerLines.get_child(idx)
+			if is_instance_valid(tracker) and is_instance_valid(line):
+				var length = translation.distance_to(tracker.translation) - 1.0
+				if length > 0.0:
+					line.visible = true
+					line.translation = lerp(translation, tracker.translation, 0.5) - translation
+					line.look_at(tracker.translation, Vector3.UP)
+					line.rotation_degrees += Vector3(90,0,0)
+					line.height = length
+				else:
+					line.visible = false
+			elif is_instance_valid(line):
+				line.queue_free()
+			idx += 1
+
+
+func is_using_player_ui():
+	if get_node_or_null("PlayerHud"):
+		return true
+	else:
+		return false

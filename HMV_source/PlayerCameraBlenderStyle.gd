@@ -91,14 +91,16 @@ func set_camera_zoom(zoom):
 	cam_ortho.size = clamp(start, 0, 100)
 
 
-func set_ortho_direction(direction):
-	if direction:
+func set_ortho_direction(ortho):
+	if ortho:
 		cam_ortho.current = true
 		cam_persp.current = false
+		SignalManager.emit_signal("camera_perspective_mode", "ortho")
 #		cam_ortho.look_at(direction, Vector3.UP)
 	else:
 		cam_ortho.current = false
 		cam_persp.current = true
+		SignalManager.emit_signal("camera_perspective_mode", "persp")
 
 func is_ortho():
 	return cam_ortho.current

@@ -1,9 +1,21 @@
 extends Node
 
+
+#######################################################
+############### CONSOLE LOG CHEAT SHEET ###############
+const INFO = Color.darkgray
+const SETTING = Color.fuchsia
+const WARN = Color.orangered
+const ERROR = Color.red
+#######################################################
+#######################################################
+
+
 const frames = ["+---", "-+--", "--+-", "---+", "--+-", "-+--"]
 const valid_commands = ["help", "bind", "unbind_all"]
 
 var num = 0
+var console_base:HSplitContainer
 var console_bg:ColorRect
 var console_label:RichTextLabel
 var console_input:LineEdit
@@ -14,7 +26,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("toggle_console"):
-		console_bg.visible = !console_bg.visible
+		console_base.visible = !console_base.visible
 
 
 
@@ -35,16 +47,36 @@ func build_console():
 	canvas.name = "Canvas"
 	add_child(canvas)
 	
+	var resizer:HSplitContainer = HSplitContainer.new()
+	resizer.anchor_left = 0
+	resizer.anchor_top = 0
+	resizer.anchor_right = 1
+	resizer.anchor_bottom = 1
+	resizer.visible = false
+	resizer.name = "Dragger"
+	console_base = resizer
+	canvas.add_child(resizer)
+	
 	var bg:ColorRect = ColorRect.new()
 	bg.anchor_left = 0
 	bg.anchor_top = 0
-	bg.anchor_right = 0.6
+	bg.anchor_right = 1
 	bg.anchor_bottom = 1
 	bg.color = Color(0.0, 0.0, 0.0, 0.5)
-	bg.visible = false
+	bg.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	bg.rect_min_size.x = 200
 	bg.name = "ColorRect"
 	console_bg = bg
-	canvas.add_child(bg)
+	resizer.add_child(bg)
+	
+	var invis:Control = Control.new()
+	invis.anchor_left = 0
+	invis.anchor_top = 0
+	invis.anchor_right = 1
+	invis.anchor_bottom = 1
+	invis.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	resizer.add_child(invis)
+	invis.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 	
 	var vbox = VBoxContainer.new()
 	vbox.anchor_right = 1
@@ -60,7 +92,7 @@ func build_console():
 	label.bbcode_enabled = true
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	label.bbcode_text = "[center][rainbow sat=0.5]/// Console ///[/rainbow][/center]"
+	label.bbcode_text = "[center][rainbow freq=1.0 sat=0.5]/// Console ///[/rainbow][/center]"
 	label.name = "ConsoleLabel"
 	console_label = label
 	vbox.add_child(label)
