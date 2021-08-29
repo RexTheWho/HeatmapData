@@ -77,7 +77,12 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			if data.taken and alive(data.unit) and data.unit:id() ~= -1 then
 				local id = data.unit:id()
 				local pos = data.unit:position()
-				local rot = data.unit:rotation()
+				local rot
+				if not data.unit:base().is_husk_player and not data.data.ai then
+					rot = data.unit:camera():rotation()
+				else
+					rot = data.unit:rotation()
+				end
 				local exists_already = false
 				local same_pos = false
 				
@@ -91,7 +96,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 							exists_already = true
 							-- While we cant find the last position info we iterate backwards through older frames until we find the frame that contains our positions
 							local back = 0
-							while not same_pos or back < 100 do
+							while not same_pos or back < 8 do
 								local tfb = HeatMap.track_frames[#HeatMap.track_frames-back]
 								if tfb then
 									for _, char_arr in pairs(tfb[1]) do
@@ -125,11 +130,11 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 					end
 				else
 					-- Get Tweakdata
-					local tweak = data.unit:base()._tweak_table
-					tweak_id = HeatMap:GetTrackListID(tweak)
+					local heister = data.name
+					local tweak_id = HeatMap:GetTrackListID(heister)
 					if not tweak_id then
 						tweak_id = #HeatMap.stringdex
-						table.insert(HeatMap.stringdex, tweak)
+						table.insert(HeatMap.stringdex, heister)
 					end
 					
 					char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
@@ -158,7 +163,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 						exists_already = true
 						-- While we cant find the last position info we iterate backwards through older frames until we find the frame that contains our positions
 						local back = 0
-						while not same_pos or back < 100 do
+						while not same_pos or back < 8 do
 							local tfb = HeatMap.track_frames[#HeatMap.track_frames-back]
 							if tfb then
 								for _, char_arr in pairs(tfb[1]) do
@@ -236,7 +241,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 						exists_already = true
 						-- While we cant find the last position info we iterate backwards through older frames until we find the frame that contains our positions
 						local back = 0
-						while not same_pos or back < 100 do
+						while not same_pos or back < 8 do
 							local tfb = HeatMap.track_frames[#HeatMap.track_frames-back]
 							if tfb then
 								for _, char_arr in pairs(tfb[1]) do
