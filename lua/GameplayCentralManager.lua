@@ -180,6 +180,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				end
 				
 				char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id, grp_id}
+				HeatMap:SetLastKnownPosition(id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()))
 			end
 			table.insert(characters, char_data)
 		end
@@ -225,6 +226,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				end
 				
 				char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
+				HeatMap:SetLastKnownPosition(id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()))
 			end
 			table.insert(characters, char_data)
 		end
