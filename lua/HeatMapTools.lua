@@ -1,7 +1,7 @@
 _G.HeatMap = _G.HeatMap or {
 	record_heist = true,
     update_delay = 0.125,
--- update_delay quality: super_low = 1.0, low = 0.75, 2fps = 0.5, 4fps = 0.25, 8fps = 0.125, 15fps = 0.0666666666667, 30fps = 0.0333333333333, 60fps = 0.0166666666667
+-- update_delay quality: super_low = 1.0, low = 0.75, 2fps = 0.5, 4fps = 0.25, 8fps = 0.125, 15fps = 0.067
     filename = ModPath,
     rec_folder = "records",
 	nav_folder = "nav_data",

@@ -65,6 +65,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			HeatMap.heist_started = true
 		end
 		
+        local last_frame = HeatMap.track_frames[#HeatMap.track_frames]
         local heatmap = {}
 		
 		local characters = {}
@@ -98,32 +99,78 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 		-- Custom enemies and civilians both use identical functions, I should make a function to handle it multiple times
 		-- Enemies [uID, X, Y, Z, R, tID]
 		for _, data in pairs(managers.enemy:all_enemies()) do
+			local id = data.unit:id()
 			local pos = data.unit:position()
 			local rot = data.unit:rotation()
-			local id = data.unit:id()
+			local exists_already = false
+			local same_pos = false
 			
-			-- Tweakdata
-			local tweak = data.unit:base()._tweak_table
-			local tweak_id = HeatMap:GetTrackListID(tweak)
-			if not tweak_id then
-				tweak_id = #HeatMap.stringdex
-				table.insert(HeatMap.stringdex, tweak)
-			end
-			
-			-- Ai Group
-			local grp = nil
-			local grp_id = nil
-			if data.group and data.group.id then
-				grp = data.group.id
-				grp_id = HeatMap:GetTrackListID(grp)
-				if not grp_id then
-					grp_id = #HeatMap.stringdex
-					table.insert(HeatMap.stringdex, grp)
+			-- if valid last frame
+			if last_frame and last_frame[1] and #last_frame[1] > 0 then
+				-- for all characters in last frame
+				for _, char_arr in pairs(last_frame[1]) do
+					-- If character array has my ID continue
+					if char_arr[1] == id then
+						-- I exist now
+						exists_already = true
+						-- While we cant find the last position info we iterate backwards through older frames until we find the frame that contains our positions
+						local back = 0
+						while not same_pos or back < 100 do
+							local tfb = HeatMap.track_frames[#HeatMap.track_frames-back]
+							if tfb then
+								for _, char_arr in pairs(tfb[1]) do
+									if char_arr[1] == id then
+										tfb = char_arr
+										break
+									end
+								end
+								if #tfb > 5 and tfb[2] == math.round(pos.x) and tfb[3] == math.round(pos.y) and tfb[4] == math.round(pos.z) and tfb[5] == math.round(rot:yaw()) then
+									same_pos = true
+									break
+								else
+									back = back + 1
+								end
+							else
+								break
+							end
+						end
+					end
 				end
 			end
 			
 			-- Save
-			local char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id, grp_id}
+			local char_data
+			local tweak_id
+			local grp_id
+			if exists_already then
+				if same_pos then
+					char_data = {id}
+				else
+					char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw())}
+				end
+			else
+				-- Get Tweakdata
+				local tweak = data.unit:base()._tweak_table
+				tweak_id = HeatMap:GetTrackListID(tweak)
+				if not tweak_id then
+					tweak_id = #HeatMap.stringdex
+					table.insert(HeatMap.stringdex, tweak)
+				end
+				
+				-- Get Ai Group
+				local grp = nil
+				grp_id = nil
+				if data.group and data.group.id then
+					grp = data.group.id
+					grp_id = HeatMap:GetTrackListID(grp)
+					if not grp_id then
+						grp_id = #HeatMap.stringdex
+						table.insert(HeatMap.stringdex, grp)
+					end
+				end
+				
+				char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id, grp_id}
+			end
 			table.insert(characters, char_data)
 		end
 		
