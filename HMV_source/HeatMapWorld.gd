@@ -1,6 +1,6 @@
 extends Spatial
 
-
+onready var transition_link = SignalManager.get_selected_job()
 onready var command_args = OS.get_cmdline_args()
 
 var track_name = ""
@@ -13,6 +13,9 @@ func _ready():
 		print("Ready to go!")
 	if command_args:
 		_files_dropped(command_args, 0)
+	elif transition_link != "":
+		_files_dropped([transition_link], 0)
+		
 
 
 func _files_dropped(files:PoolStringArray, _screen:int):
@@ -22,7 +25,6 @@ func _files_dropped(files:PoolStringArray, _screen:int):
 			$TrackerNodeHolder.generate_recording(file)
 			var nav_file = file.left(file.find_last("\\")).replace("records", "nav_data\\") + $TrackerNodeHolder.get_header_level_id() + ".nav_data"
 			$NavigationVisualiser.load_nav_data(nav_file)
-			$IntroUI.queue_free()
 			break
 
 

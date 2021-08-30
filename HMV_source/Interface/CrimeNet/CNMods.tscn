@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Materials/CanvasAdd.tres" type="Material" id=1]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_mini_ghost.png" type="Texture" id=2]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_mini_onedown.png" type="Texture" id=3]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_mini_mutator.png" type="Texture" id=4]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_mini_xmas.png" type="Texture" id=5]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_mini_ween.png" type="Texture" id=6]
+[ext_resource path="res://Interface/CrimeNet/CNMods.gd" type="Script" id=7]
+
+[node name="Control" type="Control"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CNMods" type="GridContainer" parent="."]
+margin_right = 32.0
+margin_bottom = 16.0
+rect_scale = Vector2( -1, 1 )
+rect_pivot_offset = Vector2( 16, 0 )
+mouse_filter = 2
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cn_minighost" type="TextureRect" parent="CNMods"]
+self_modulate = Color( 0.298039, 0.65098, 1, 1 )
+material = ExtResource( 1 )
+margin_right = 16.0
+margin_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cn_onedown" type="TextureRect" parent="CNMods"]
+self_modulate = Color( 1, 0.2, 0.2, 1 )
+material = ExtResource( 1 )
+margin_left = 16.0
+margin_right = 32.0
+margin_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cn_mutator" type="TextureRect" parent="CNMods"]
+self_modulate = Color( 0.917647, 0.2, 1, 1 )
+material = ExtResource( 1 )
+margin_top = 16.0
+margin_right = 16.0
+margin_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cn_ween" type="TextureRect" parent="CNMods"]
+self_modulate = Color( 1, 0.686275, 0.2, 1 )
+material = ExtResource( 1 )
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 32.0
+margin_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cn_xmas" type="TextureRect" parent="CNMods"]
+visible = false
+self_modulate = Color( 0.2, 1, 0.211765, 1 )
+material = ExtResource( 1 )
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 32.0
+margin_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

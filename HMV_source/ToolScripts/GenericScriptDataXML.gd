@@ -19,7 +19,7 @@ func load_xml(file):
 		return get_current_table(xml)
 	else:
 		push_error("Failed to open XML!")
-
+		breakpoint
 
 # Potential values are table, number, vector3, string and boolean
 #var line = 0

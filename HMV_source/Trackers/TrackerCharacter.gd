@@ -48,6 +48,7 @@ func play_frame(frame_data:Array, ignore_interp:bool):
 		
 		if my_data:
 			if my_data.size() > 1:
+				$Particles.emitting = true
 				var pos = Vector3( my_data[1], my_data[3], -my_data[2] )/100
 				var rot = Vector3( 0, my_data[4], 0 ) # Rotations need to be lerped properly!
 				var dir_node = $Direction
@@ -68,6 +69,8 @@ func play_frame(frame_data:Array, ignore_interp:bool):
 	#					tween.interpolate_property( dir_node, "rotation_degrees", dir_node.rotation_degrees, rot, delay)
 						dir_node.rotation_degrees = rot
 					tween.start()
+			else:
+				$Particles.emitting = false
 		else:
 			print("TrackerCharacter: Character ID " + str(character_id) + " no longer exists in frame data, Freeing.")
 			emit_signal("missing_character", character_id)

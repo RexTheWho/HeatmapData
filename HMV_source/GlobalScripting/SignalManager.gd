@@ -11,6 +11,13 @@ signal camera_track_object(object)
 
 signal camera_perspective_mode(mode)
 
+var selected_job = ""
+
+
+func get_selected_job():
+	var j = selected_job
+	selected_job = ""
+	return j
 
 # Fast signal connect
 func simple_connect(from:Object, to:Object, signal_id:String, method:String, items:Array):

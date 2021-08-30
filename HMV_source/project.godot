@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Heat Map Visualiser"
-run/main_scene="res://Heatmap.tscn"
+run/main_scene="res://Startup.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -20,6 +20,15 @@ Console="*res://GlobalScripting/Console.gd"
 CharDB="*res://GlobalScripting/CharDB.gd"
 SignalManager="*res://GlobalScripting/SignalManager.gd"
 VisibilityManager="*res://GlobalScripting/VisibilityManager.gd"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/size/test_width=1280
+window/size/test_height=720
+window/stretch/mode="2d"
+window/stretch/aspect="keep_height"
 
 [input]
 
@@ -119,7 +128,8 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/filters/msaa=4
+quality/subsurface_scattering/quality=0
+quality/filters/msaa=2
 quality/filters/use_fxaa=true
 quality/filters/use_debanding=true
 environment/default_environment="res://default_env.tres"
