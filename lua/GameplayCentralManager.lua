@@ -65,7 +65,6 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			HeatMap.heist_started = true
 		end
 		
-        local last_frame = HeatMap.track_frames[#HeatMap.track_frames]
         local heatmap = {}
 		
 		local characters = {}
@@ -87,15 +86,11 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				local same_pos = false
 				
 				-- Last Frame
-				if last_frame and last_frame[1] and #last_frame[1] > 0 then
-					for _, char_arr in pairs(last_frame[1]) do
-						if char_arr[1] == id then
-							exists_already = true
-							local last_pos = HeatMap:GetLastKnownPosition(id)
-							if last_pos and last_pos[1] == math.round(pos.x) and last_pos[2] == math.round(pos.y) and last_pos[3] == math.round(pos.z) and last_pos[4] == math.round(rot:yaw()) then
-								same_pos = true
-							end
-						end
+				if data.last_known_pos then
+					exists_already = true
+					local last_pos = data.last_known_pos
+					if last_pos and last_pos[1] == math.round(pos.x) and last_pos[2] == math.round(pos.y) and last_pos[3] == math.round(pos.z) and last_pos[4] == math.round(rot:yaw()) then
+						same_pos = true
 					end
 				end
 				
@@ -107,7 +102,6 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 						char_data = {id}
 					else
 						char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw())}
-						HeatMap:SetLastKnownPosition(id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()))
 					end
 				else
 					-- Get Tweakdata
@@ -119,7 +113,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 					end
 					
 					char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
-					HeatMap:SetLastKnownPosition(id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()))
+					data["last_known_pos"] = {math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw())}
 				end
 				table.insert(characters, char_data)
 			end
@@ -136,15 +130,11 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			local same_pos = false
 			
 			-- Last Frame
-			if last_frame and last_frame[1] and #last_frame[1] > 0 then
-				for _, char_arr in pairs(last_frame[1]) do
-					if char_arr[1] == id then
-						exists_already = true
-						local last_pos = HeatMap:GetLastKnownPosition(id)
-						if last_pos and last_pos[1] == math.round(pos.x) and last_pos[2] == math.round(pos.y) and last_pos[3] == math.round(pos.z) and last_pos[4] == math.round(rot:yaw()) then
-							same_pos = true
-						end
-					end
+			if data.last_known_pos then
+				exists_already = true
+				local last_pos = data.last_known_pos
+				if last_pos and last_pos[1] == math.round(pos.x) and last_pos[2] == math.round(pos.y) and last_pos[3] == math.round(pos.z) and last_pos[4] == math.round(rot:yaw()) then
+					same_pos = true
 				end
 			end
 			
@@ -180,7 +170,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				end
 				
 				char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id, grp_id}
-				HeatMap:SetLastKnownPosition(id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()))
+				data["last_known_pos"] = {math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw())}
 			end
 			table.insert(characters, char_data)
 		end
@@ -195,15 +185,11 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 			local same_pos = false
 			
 			-- Last Frame
-			if last_frame and last_frame[1] and #last_frame[1] > 0 then
-				for _, char_arr in pairs(last_frame[1]) do
-					if char_arr[1] == id then
-						exists_already = true
-						local last_pos = HeatMap:GetLastKnownPosition(id)
-						if last_pos and last_pos[1] == math.round(pos.x) and last_pos[2] == math.round(pos.y) and last_pos[3] == math.round(pos.z) and last_pos[4] == math.round(rot:yaw()) then
-							same_pos = true
-						end
-					end
+			if data.last_known_pos then
+				exists_already = true
+				local last_pos = data.last_known_pos
+				if last_pos and last_pos[1] == math.round(pos.x) and last_pos[2] == math.round(pos.y) and last_pos[3] == math.round(pos.z) and last_pos[4] == math.round(rot:yaw()) then
+					same_pos = true
 				end
 			end
 			
@@ -226,7 +212,7 @@ Hooks:PostHook(GamePlayCentralManager, "update", "HeatmapUpdate", function(self,
 				end
 				
 				char_data = {id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()), tweak_id}
-				HeatMap:SetLastKnownPosition(id, math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw()))
+				data["last_known_pos"] = {math.round(pos.x), math.round(pos.y), math.round(pos.z), math.round(rot:yaw())}
 			end
 			table.insert(characters, char_data)
 		end

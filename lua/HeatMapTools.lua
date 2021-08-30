@@ -13,9 +13,7 @@ _G.HeatMap = _G.HeatMap or {
 	stringdex = {},
 	track_frames = {},
 	frame_events = {},
-	units_to_track = {},
-	
-	characters_last_known_xyzr = {}
+	units_to_track = {}
 }
 
 
@@ -109,11 +107,11 @@ function HeatMap:SaveTrackData()
 		HeatMap.track_header = {}
 		HeatMap.stringdex = {}
 		HeatMap.track_frames = {}
-		HeatMap.characters_last_known_xyzr = {}
 	else
 		log("PDHeat: Failed to save tracking data!")
 	end
 end
+
 
 -- Exports the navigation data of the current heist if not already present
 function HeatMap:DumpNavData(level_id, path)
@@ -127,6 +125,7 @@ function HeatMap:DumpNavData(level_id, path)
 		end
 	end
 end
+
 
 -- Add events to the frames event array.
 -- ToDo: I would like to implement a value to better mark events and when they happen;
@@ -197,22 +196,6 @@ function HeatMap:GetTrackListID(character)
 	end
 	return false
 end
-
-
-function HeatMap:SetLastKnownPosition(unit_id, x, y, z, r)
-	HeatMap.characters_last_known_xyzr[unit_id] = {math.round(x), math.round(y), math.round(z), math.round(r)}
-end
-
-
-function HeatMap:GetLastKnownPosition(unit_id)
-	for key, values in pairs(HeatMap.characters_last_known_xyzr) do
-		if key == unit_id then
-			return values
-		end
-	end
-	return false
-end
-
 
 
 
