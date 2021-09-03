@@ -64,7 +64,7 @@ func create_panel(character_id):
 		texrect.rect_min_size = Vector2(32,32)
 		texrect.expand = true
 		texrect.stretch_mode = TextureRect.STRETCH_SCALE
-		texrect.texture = load("res://Textures/Characters/character_icon_{character_id}.png".format({"character_id":character_id}))
+		texrect.texture = load_unique_texture(character_id)
 		panel.add_child(texrect)
 		
 		var label = Label.new()
@@ -82,5 +82,12 @@ func hide_panel(character_id):
 		push_warning("TCList: Does not contain a " + "Tracker_" + character_id)
 	
 
+
+func load_unique_texture(character_id:String):
+	var tex = load("res://Textures/Characters/character_icon_{character_id}.png".format({"character_id":character_id}))
+	if tex:
+		return tex.duplicate()
+	else:
+		return null
 
 

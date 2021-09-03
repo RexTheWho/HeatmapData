@@ -1,5 +1,7 @@
 extends Control
 
+signal hover_off_job(key)
+signal hover_on_job(key)
 
 const job_rec = preload("res://Interface/CrimeNet/CNJobSelection.tscn")
 
@@ -11,7 +13,7 @@ var job_headers = {}
 
 func _ready():
 	get_pdheat_files()
-	$RecordsList/Label.text = "Crime.Net/Evidence_Locker: %03d Records" % [job_headers.size()]
+	$H/RecordsList/Label.text = "Crime.Net/Evidence_Locker: %03d Records" % [job_headers.size()]
 	var list = get_node_or_null(job_selection_list)
 	if list:
 		list.get_node("NoJobs").visible = false
@@ -20,13 +22,26 @@ func _ready():
 
 
 func add_job_listing(add_to:Object, key:String):
-	var job_head = job_headers[key]
 	var job_rec_inst = job_rec.instance()
+	var job_head = job_headers[key]
+	var contractor_loc = "Contact Missing"
+	if job_head.has("contractor_loc"):
+		contractor_loc = job_head["contractor_loc"]
+	elif job_head.has("contractor_id"):
+		contractor_loc = job_head["contractor_id"]
+	
+	var level_loc = "Level Missing"
+	if job_head.has("level_loc"):
+		level_loc = job_head["level_loc"]
+	elif job_head.has("level_id"):
+		level_loc = job_head["level_id"]
+	
 	job_rec_inst.set_job_path(job_headers[key]["path"])
-	job_rec_inst.set_job_name(job_head["contractor_id"], job_head["level_id"])
+	job_rec_inst.set_job_name(contractor_loc, level_loc)
 	job_rec_inst.set_job_diff(job_head["difficulty"])
 	job_rec_inst.set_job_date(job_head["start_date_time"])
 	job_rec_inst.set_job_length(job_head["frame_total"], job_head["update_delay"])
+	job_rec_inst.set_job_reference_key(key)
 	add_to.add_child(job_rec_inst)
 
 

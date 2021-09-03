@@ -1,0 +1,10 @@
+{
+	"heatmap":											"Heatmap Data",
+	"heatmap_desc":										"Heatmap settings.",
+	"HeatmapDataheatmap_enabledTitleID":	"Record Levels",
+	"HeatmapDataheatmap_enabledDescID":		"Toggling this off will stop recording.",
+	"HeatmapDataheatmap_liveTitleID":		"Live recording"
+	"HeatmapDataheatmap_liveDescID":		"Toggling this on will save every frame of the recording live instead of at the end of a job."
+	"HeatmapDataheatmap_updateTitleID":		"Update Rate"
+	"HeatmapDataheatmap_updateDescID":		"Delay in seconds per frame recording. Default 0.2 (5fps)"
+}

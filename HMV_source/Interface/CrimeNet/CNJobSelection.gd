@@ -6,12 +6,19 @@ export(NodePath) var CNJobDate
 export(NodePath) var CNLength
 export(NodePath) var CNTimer
 
+var ref_key = ""
 var filepath = ""
 
 func _play_job():
 	print("PLAY! " + filepath)
 	SignalManager.selected_job = filepath
 	get_tree().change_scene_to(load("res://Heatmap.tscn"))
+
+func set_job_reference_key(key:String):
+	ref_key = key
+
+func get_job_reference_key():
+	return ref_key
 
 func set_job_path(path:String):
 	filepath = path
@@ -35,3 +42,11 @@ func set_job_length(frame_total:int, update_delay:float):
 
 func set_job_mods(job:String):
 	pass
+
+
+func _on_JobSelection_mouse_entered():
+	get_parent().emit_signal("hover_on_job", ref_key)
+
+
+func _on_JobSelection_mouse_exited():
+	get_parent().emit_signal("hover_off_job")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://DINEngschrift.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Interface/CrimeNet/Styles/TallWindow.tres" type="StyleBox" id=2]
@@ -6,6 +6,17 @@
 [ext_resource path="res://Interface/CrimeNet/CNJobList.gd" type="Script" id=4]
 [ext_resource path="res://Interface/CrimeNet/Styles/GenericWindow.tres" type="StyleBox" id=5]
 [ext_resource path="res://Interface/CrimeNet/Styles/GenericWindow_NoMargin.tres" type="StyleBox" id=6]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_reload.png" type="Texture" id=7]
+[ext_resource path="res://Interface/CrimeNet/Styles/GenericWindow_NoBG.tres" type="StyleBox" id=8]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_job_diff_ds.png" type="Texture" id=9]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_job_stealthed.png" type="Texture" id=10]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_job_success.png" type="Texture" id=11]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_job_diff_mayhem.png" type="Texture" id=12]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_job_diff_dw.png" type="Texture" id=13]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_job_diff_normal.png" type="Texture" id=14]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_tab.png" type="Texture" id=15]
+[ext_resource path="res://Interface/CrimeNet/Styles/TallWindow_NoBG.tres" type="StyleBox" id=16]
+[ext_resource path="res://Interface/CrimeNet/CNJobSummaryBuilds.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -26,6 +37,41 @@ font_data = ExtResource( 1 )
 extra_spacing_bottom = -2
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 20
+extra_spacing_bottom = -3
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=10]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 128, 32 )
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="DynamicFont" id=13]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 20
+font_data = ExtResource( 1 )
+
 [node name="CNJobList" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -34,37 +80,48 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
-job_selection_list = NodePath("RecordsList/H/Control/Scroll/V")
+job_selection_list = NodePath("H/RecordsList/H/Control/Scroll/V")
 
-[node name="RecordsList" type="VBoxContainer" parent="."]
+[node name="H" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 64.0
 margin_top = 64.0
-margin_right = 664.0
-margin_bottom = 656.0
-mouse_filter = 0
-custom_constants/separation = 0
+margin_right = -64.0
+margin_bottom = -64.0
+custom_constants/separation = 16
+alignment = 1
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="RecordsList"]
-margin_right = 600.0
+[node name="RecordsList" type="VBoxContainer" parent="H"]
+margin_right = 568.0
+margin_bottom = 592.0
+mouse_filter = 0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="H/RecordsList"]
+margin_right = 568.0
 margin_bottom = 32.0
 mouse_filter = 0
 custom_fonts/font = SubResource( 1 )
 text = "Crime.Net/Evidence_Locker: 9999999 Records"
 uppercase = true
 
-[node name="H" type="GridContainer" parent="RecordsList"]
+[node name="H" type="GridContainer" parent="H/RecordsList"]
 margin_top = 32.0
-margin_right = 600.0
+margin_right = 568.0
 margin_bottom = 592.0
 size_flags_vertical = 3
 columns = 2
 
-[node name="Control" type="PanelContainer" parent="RecordsList/H"]
-margin_right = 532.0
+[node name="Control" type="PanelContainer" parent="H/RecordsList/H"]
+margin_right = 500.0
 margin_bottom = 524.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -73,26 +130,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Scroll" type="ScrollContainer" parent="RecordsList/H/Control"]
+[node name="Scroll" type="ScrollContainer" parent="H/RecordsList/H/Control"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 524.0
+margin_right = 492.0
 margin_bottom = 516.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource( 2 )
 scroll_horizontal_enabled = false
 
-[node name="V" type="VBoxContainer" parent="RecordsList/H/Control/Scroll"]
-margin_right = 516.0
+[node name="V" type="VBoxContainer" parent="H/RecordsList/H/Control/Scroll"]
+margin_right = 484.0
 margin_bottom = 508.0
 mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
-[node name="NoJobs" type="Label" parent="RecordsList/H/Control/Scroll/V"]
-margin_right = 516.0
+[node name="NoJobs" type="Label" parent="H/RecordsList/H/Control/Scroll/V"]
+margin_right = 484.0
 margin_bottom = 17.0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
@@ -100,51 +157,61 @@ text = "You have no recorded jobs -- Come back later after a heist or two"
 align = 1
 uppercase = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RecordsList/H"]
-margin_left = 536.0
-margin_right = 600.0
+[node name="V" type="VBoxContainer" parent="H/RecordsList/H"]
+margin_left = 504.0
+margin_right = 568.0
 margin_bottom = 524.0
 
-[node name="PanelContainer" type="PanelContainer" parent="RecordsList/H/VBoxContainer"]
+[node name="Side1" type="PanelContainer" parent="H/RecordsList/H/V"]
 margin_right = 64.0
-margin_bottom = 172.0
+margin_bottom = 456.0
 rect_min_size = Vector2( 64, 0 )
 size_flags_vertical = 3
 custom_styles/panel = ExtResource( 5 )
 
-[node name="PanelContainer2" type="PanelContainer" parent="RecordsList/H/VBoxContainer"]
-margin_top = 176.0
-margin_right = 64.0
-margin_bottom = 348.0
-rect_min_size = Vector2( 64, 0 )
-size_flags_vertical = 3
-custom_styles/panel = ExtResource( 5 )
-
-[node name="PanelContainer3" type="PanelContainer" parent="RecordsList/H/VBoxContainer"]
-margin_top = 352.0
+[node name="Side2" type="PanelContainer" parent="H/RecordsList/H/V"]
+margin_top = 460.0
 margin_right = 64.0
 margin_bottom = 524.0
 rect_min_size = Vector2( 64, 0 )
-size_flags_vertical = 3
 custom_styles/panel = ExtResource( 5 )
 
-[node name="VBoxContainer2" type="HBoxContainer" parent="RecordsList/H"]
+[node name="V" type="VBoxContainer" parent="H/RecordsList/H/V/Side2"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 56.0
+margin_bottom = 56.0
+custom_constants/separation = 0
+
+[node name="Reload" type="TextureButton" parent="H/RecordsList/H/V/Side2/V"]
+margin_right = 48.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 7 )
+texture_disabled = ExtResource( 7 )
+texture_focused = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="H/RecordsList/H"]
 margin_top = 528.0
-margin_right = 532.0
+margin_right = 500.0
 margin_bottom = 560.0
 
-[node name="PanelContainer" type="PanelContainer" parent="RecordsList/H/VBoxContainer2"]
-margin_right = 532.0
+[node name="PanelContainer" type="PanelContainer" parent="H/RecordsList/H/VBoxContainer2"]
+margin_right = 500.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = ExtResource( 5 )
 
-[node name="TextEdit" type="LineEdit" parent="RecordsList/H/VBoxContainer2/PanelContainer"]
+[node name="TextEdit" type="LineEdit" parent="H/RecordsList/H/VBoxContainer2/PanelContainer"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 524.0
+margin_right = 492.0
 margin_bottom = 24.0
 custom_styles/read_only = SubResource( 4 )
 custom_styles/focus = SubResource( 5 )
@@ -152,15 +219,15 @@ custom_styles/normal = SubResource( 6 )
 custom_fonts/font = SubResource( 7 )
 placeholder_text = "Search Job..."
 
-[node name="PanelContainer4" type="PanelContainer" parent="RecordsList/H"]
-margin_left = 536.0
+[node name="PanelContainer4" type="PanelContainer" parent="H/RecordsList/H"]
+margin_left = 504.0
 margin_top = 528.0
-margin_right = 600.0
+margin_right = 568.0
 margin_bottom = 560.0
 rect_min_size = Vector2( 0, 32 )
 custom_styles/panel = ExtResource( 6 )
 
-[node name="TextureRect" type="Button" parent="RecordsList/H/PanelContainer4"]
+[node name="TextureRect" type="Button" parent="H/RecordsList/H/PanelContainer4"]
 margin_left = 10.0
 margin_top = 1.0
 margin_right = 54.0
@@ -171,3 +238,243 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 icon = ExtResource( 3 )
 flat = true
+
+[node name="JobInfo" type="VBoxContainer" parent="H"]
+margin_left = 584.0
+margin_right = 1152.0
+margin_bottom = 592.0
+rect_min_size = Vector2( 420, 560 )
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="PanelContainer" parent="H/JobInfo"]
+margin_right = 568.0
+margin_bottom = 592.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="H/JobInfo/Control2"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 560.0
+margin_bottom = 584.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="Title" type="Label" parent="H/JobInfo/Control2/VBoxContainer"]
+margin_right = 196.0
+margin_bottom = 26.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 8 )
+text = "Jewelry Store: Success"
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="H/JobInfo/Control2/VBoxContainer"]
+margin_top = 26.0
+margin_right = 552.0
+margin_bottom = 44.0
+custom_constants/separation = 0
+
+[node name="Risk" type="Label" parent="H/JobInfo/Control2/VBoxContainer/HBoxContainer"]
+margin_right = 34.0
+margin_bottom = 18.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 1, 0.75, 0, 1 )
+text = "RISK:"
+uppercase = true
+
+[node name="Diff1" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.247059 )
+margin_left = 34.0
+margin_right = 52.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 18, 18 )
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 5
+
+[node name="Diff2" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.247059 )
+margin_left = 52.0
+margin_right = 70.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 18, 18 )
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 5
+
+[node name="Diff3" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.247059 )
+margin_left = 70.0
+margin_right = 88.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 18, 18 )
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 5
+
+[node name="Diff4" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.247059 )
+margin_left = 88.0
+margin_right = 106.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 18, 18 )
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 5
+
+[node name="Diff5" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.247059 )
+margin_left = 106.0
+margin_right = 124.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 18, 18 )
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="Diff6" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/HBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.247059 )
+margin_left = 124.0
+margin_right = 142.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 18, 18 )
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="TabContainer" type="TabContainer" parent="H/JobInfo/Control2/VBoxContainer"]
+margin_top = 116.0
+margin_right = 552.0
+margin_bottom = 576.0
+rect_min_size = Vector2( 0, 460 )
+size_flags_horizontal = 3
+size_flags_vertical = 10
+custom_styles/tab_fg = SubResource( 10 )
+custom_styles/tab_disabled = SubResource( 11 )
+custom_styles/tab_bg = SubResource( 12 )
+custom_styles/panel = ExtResource( 16 )
+custom_fonts/font = SubResource( 13 )
+custom_colors/font_color_bg = Color( 0.298039, 0.65098, 1, 0.498039 )
+custom_colors/font_color_fg = Color( 0, 0, 0, 1 )
+tab_align = 0
+
+[node name="SUMMARY" type="MarginContainer" parent="H/JobInfo/Control2/VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 38.0
+margin_right = -8.0
+margin_bottom = -8.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Text" type="RichTextLabel" parent="H/JobInfo/Control2/VBoxContainer/TabContainer/SUMMARY"]
+margin_right = 536.0
+margin_bottom = 414.0
+custom_fonts/mono_font = SubResource( 14 )
+custom_fonts/bold_italics_font = SubResource( 14 )
+custom_fonts/italics_font = SubResource( 14 )
+custom_fonts/bold_font = SubResource( 14 )
+custom_fonts/normal_font = SubResource( 14 )
+bbcode_enabled = true
+bbcode_text = "You earned $30,000 for completing the contract. You also made it out with 3 bag(s) with a total value of $15,000.
+
+Sent to offshore account: [color=#4ca6ff]$36,000[/color].
+Change in available spending cash: [color=#4ca6ff]$9,000[/color]."
+text = "You earned $30,000 for completing the contract. You also made it out with 3 bag(s) with a total value of $15,000.
+
+Sent to offshore account: $36,000.
+Change in available spending cash: $9,000."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CREW STATS" type="MarginContainer" parent="H/JobInfo/Control2/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 38.0
+margin_right = -8.0
+margin_bottom = -8.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Text" type="RichTextLabel" parent="H/JobInfo/Control2/VBoxContainer/TabContainer/CREW STATS"]
+margin_right = 536.0
+margin_bottom = 414.0
+custom_fonts/mono_font = SubResource( 14 )
+custom_fonts/bold_italics_font = SubResource( 14 )
+custom_fonts/italics_font = SubResource( 14 )
+custom_fonts/bold_font = SubResource( 14 )
+custom_fonts/normal_font = SubResource( 14 )
+bbcode_enabled = true
+bbcode_text = "Crew stats."
+text = "Crew stats."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CREW BUILDS" parent="H/JobInfo/Control2/VBoxContainer/TabContainer" instance=ExtResource( 17 )]
+
+[node name="Control3" type="PanelContainer" parent="H/JobInfo/Control2/VBoxContainer"]
+visible = false
+margin_top = 504.0
+margin_right = 404.0
+margin_bottom = 568.0
+custom_styles/panel = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="H/JobInfo/Control2/VBoxContainer/Control3"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 396.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 0, 48 )
+alignment = 1
+
+[node name="Success" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/Control3/HBoxContainer"]
+margin_left = 118.0
+margin_right = 166.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="Stealthed" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/Control3/HBoxContainer"]
+margin_left = 170.0
+margin_right = 218.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Diff" type="TextureRect" parent="H/JobInfo/Control2/VBoxContainer/Control3/HBoxContainer"]
+margin_left = 222.0
+margin_right = 270.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 48, 48 )
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}

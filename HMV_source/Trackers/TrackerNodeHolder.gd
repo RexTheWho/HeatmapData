@@ -40,6 +40,11 @@ var cameras = {}
 
 
 func _input(event):
+	if event.is_action_pressed("skip2"):
+		Engine.time_scale = 20.0
+	elif event.is_action_released("skip2"):
+		Engine.time_scale = 1.0
+		
 	if event.is_action_pressed("skip"):
 		Engine.time_scale = 4.0
 	elif event.is_action_released("skip"):

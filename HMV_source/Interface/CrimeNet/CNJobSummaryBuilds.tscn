@@ -1,0 +1,1121 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://Interface/CrimeNet/Styles/GenericWindow_NoBG.tres" type="StyleBox" id=1]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_missing_primary.png" type="Texture" id=2]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_skillcards.png" type="Texture" id=3]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_armor_2.png" type="Texture" id=4]
+[ext_resource path="res://Interface/CrimeNet/CNCrewBuild.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Interface/CrimeNet/CNJobSummaryBuilds.gd" type="Script" id=6]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_equip_bodybags_bag.png" type="Texture" id=7]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_throw_frag_com.png" type="Texture" id=8]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_equip_medic_bag.png" type="Texture" id=9]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_equip_trip_mine.png" type="Texture" id=10]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_missing_secondary.png" type="Texture" id=11]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_equip_sentry_gun.png" type="Texture" id=12]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_armor_7.png" type="Texture" id=13]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_armor_6.png" type="Texture" id=15]
+[ext_resource path="res://Materials/CanvasInvertChalked.tres" type="Material" id=16]
+[ext_resource path="res://Interface/CrimeNet/Textures/cn_loadout_throw_frag.png" type="Texture" id=17]
+[ext_resource path="res://Interface/CrimeNet/FBIFilesThumbLoader.gd" type="Script" id=18]
+[ext_resource path="res://DINEngschrift.ttf" type="DynamicFontData" id=19]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 19 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 19 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 22, 31 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 98, 0, 30, 39 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 22, 0, 22, 31 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 44, 0, 22, 31 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 31, 22, 31 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 22, 31, 22, 31 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 44, 31, 22, 31 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 19 )
+
+[node name="CREW BUILDS" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 38.0
+margin_right = -8.0
+margin_bottom = -8.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 6 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1264.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="H" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1264.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Crew0" parent="VBoxContainer/H" instance=ExtResource( 5 )]
+
+[node name="Crew1" type="MarginContainer" parent="VBoxContainer/H"]
+margin_left = 317.0
+margin_right = 630.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="VBoxContainer/H/Crew1"]
+margin_right = 313.0
+margin_bottom = 674.0
+custom_constants/separation = 0
+
+[node name="Name" type="Label" parent="VBoxContainer/H/Crew1/V"]
+margin_right = 313.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.470588, 0.717647, 0.8, 1 )
+text = "Chains"
+align = 1
+uppercase = true
+
+[node name="Perk" type="Label" parent="VBoxContainer/H/Crew1/V"]
+margin_top = 21.0
+margin_right = 313.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 2 )
+text = "Burglar"
+align = 1
+uppercase = true
+
+[node name="Skills" type="HBoxContainer" parent="VBoxContainer/H/Crew1/V"]
+margin_top = 38.0
+margin_right = 313.0
+margin_bottom = 53.0
+alignment = 1
+
+[node name="Skill1" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills"]
+margin_left = 116.0
+margin_right = 126.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills/Skill1"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill2" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills"]
+margin_left = 130.0
+margin_right = 140.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills/Skill2"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill3" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills"]
+margin_left = 144.0
+margin_right = 154.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills/Skill3"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill4" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills"]
+margin_left = 158.0
+margin_right = 168.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills/Skill4"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill5" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills"]
+margin_left = 172.0
+margin_right = 182.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills/Skill5"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill6" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills"]
+margin_left = 186.0
+margin_right = 196.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Skills/Skill6"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crew4" type="PanelContainer" parent="VBoxContainer/H/Crew1/V"]
+margin_top = 53.0
+margin_right = 313.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/H/Crew1/V/Crew4"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 305.0
+margin_bottom = 613.0
+
+[node name="PrimaryText" type="Label" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer"]
+margin_right = 297.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "AMCAR Rifle"
+align = 1
+uppercase = true
+
+[node name="PrimaryIcon" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer"]
+material = ExtResource( 16 )
+margin_top = 21.0
+margin_right = 297.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 18 )
+
+[node name="SecondaryText" type="Label" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer"]
+margin_top = 235.0
+margin_right = 297.0
+margin_bottom = 252.0
+custom_fonts/font = SubResource( 10 )
+text = "Chimano 88 Pistol"
+align = 1
+uppercase = true
+
+[node name="SecondaryIcon" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer"]
+material = ExtResource( 16 )
+margin_top = 256.0
+margin_right = 297.0
+margin_bottom = 467.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 18 )
+
+[node name="ArmorThrow" type="HBoxContainer" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer"]
+margin_top = 471.0
+margin_right = 297.0
+margin_bottom = 536.0
+custom_constants/separation = 0
+
+[node name="VArmor" type="VBoxContainer" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/ArmorThrow"]
+margin_right = 148.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="ArmorText" type="Label" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/ArmorThrow/VArmor"]
+margin_right = 148.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Armor"
+align = 1
+uppercase = true
+
+[node name="ArmorIcon" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/ArmorThrow/VArmor"]
+margin_top = 17.0
+margin_right = 148.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
+
+[node name="VThrow" type="VBoxContainer" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/ArmorThrow"]
+margin_left = 148.0
+margin_right = 297.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="ThrowText" type="Label" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/ArmorThrow/VThrow"]
+margin_right = 149.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Thrown"
+align = 1
+uppercase = true
+
+[node name="ThrowIcon" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/ArmorThrow/VThrow"]
+margin_top = 17.0
+margin_right = 149.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 6
+
+[node name="H2" type="HBoxContainer" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer"]
+margin_top = 540.0
+margin_right = 297.0
+margin_bottom = 605.0
+custom_constants/separation = 0
+
+[node name="V" type="VBoxContainer" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/H2"]
+margin_right = 297.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="EquipText" type="Label" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/H2/V"]
+margin_right = 297.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Equipment"
+align = 1
+uppercase = true
+
+[node name="H" type="HBoxContainer" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/H2/V"]
+margin_top = 17.0
+margin_right = 297.0
+margin_bottom = 65.0
+custom_constants/separation = 0
+
+[node name="EquipIcon1" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/H2/V/H"]
+margin_right = 297.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="EquipIcon2" type="TextureRect" parent="VBoxContainer/H/Crew1/V/Crew4/VBoxContainer/H2/V/H"]
+visible = false
+margin_left = 62.0
+margin_right = 125.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Crew2" type="MarginContainer" parent="VBoxContainer/H"]
+margin_left = 634.0
+margin_right = 947.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="VBoxContainer/H/Crew2"]
+margin_right = 313.0
+margin_bottom = 674.0
+custom_constants/separation = 0
+
+[node name="Name" type="Label" parent="VBoxContainer/H/Crew2/V"]
+margin_right = 313.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.407843, 0.34902, 1 )
+text = "Wolf"
+align = 1
+uppercase = true
+
+[node name="Perk" type="Label" parent="VBoxContainer/H/Crew2/V"]
+margin_top = 21.0
+margin_right = 313.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 2 )
+text = "Yakuza"
+align = 1
+uppercase = true
+
+[node name="Skills" type="HBoxContainer" parent="VBoxContainer/H/Crew2/V"]
+margin_top = 38.0
+margin_right = 313.0
+margin_bottom = 53.0
+alignment = 1
+
+[node name="Skill1" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills"]
+margin_left = 116.0
+margin_right = 126.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills/Skill1"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill2" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills"]
+margin_left = 130.0
+margin_right = 140.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills/Skill2"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill3" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills"]
+margin_left = 144.0
+margin_right = 154.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills/Skill3"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill4" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills"]
+margin_left = 158.0
+margin_right = 168.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills/Skill4"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill5" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills"]
+margin_left = 172.0
+margin_right = 182.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills/Skill5"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill6" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills"]
+margin_left = 186.0
+margin_right = 196.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Skills/Skill6"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crew4" type="PanelContainer" parent="VBoxContainer/H/Crew2/V"]
+margin_top = 53.0
+margin_right = 313.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/H/Crew2/V/Crew4"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 305.0
+margin_bottom = 613.0
+
+[node name="PrimaryText" type="Label" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer"]
+margin_right = 297.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "AMCAR Rifle"
+align = 1
+uppercase = true
+
+[node name="PrimaryIcon" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer"]
+material = ExtResource( 16 )
+margin_top = 21.0
+margin_right = 297.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 18 )
+
+[node name="SecondaryText" type="Label" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer"]
+margin_top = 235.0
+margin_right = 297.0
+margin_bottom = 252.0
+custom_fonts/font = SubResource( 10 )
+text = "Chimano 88 Pistol"
+align = 1
+uppercase = true
+
+[node name="SecondaryIcon" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer"]
+material = ExtResource( 16 )
+margin_top = 256.0
+margin_right = 297.0
+margin_bottom = 467.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 18 )
+
+[node name="ArmorThrow" type="HBoxContainer" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer"]
+margin_top = 471.0
+margin_right = 297.0
+margin_bottom = 536.0
+custom_constants/separation = 0
+
+[node name="VArmor" type="VBoxContainer" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/ArmorThrow"]
+margin_right = 148.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="ArmorText" type="Label" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/ArmorThrow/VArmor"]
+margin_right = 148.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Armor"
+align = 1
+uppercase = true
+
+[node name="ArmorIcon" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/ArmorThrow/VArmor"]
+margin_top = 17.0
+margin_right = 148.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="VThrow" type="VBoxContainer" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/ArmorThrow"]
+margin_left = 148.0
+margin_right = 297.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="ThrowText" type="Label" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/ArmorThrow/VThrow"]
+margin_right = 149.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Thrown"
+align = 1
+uppercase = true
+
+[node name="ThrowIcon" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/ArmorThrow/VThrow"]
+margin_top = 17.0
+margin_right = 149.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="H2" type="HBoxContainer" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer"]
+margin_top = 540.0
+margin_right = 297.0
+margin_bottom = 605.0
+custom_constants/separation = 0
+
+[node name="V" type="VBoxContainer" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/H2"]
+margin_right = 297.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="EquipText" type="Label" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/H2/V"]
+margin_right = 297.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Equipment"
+align = 1
+uppercase = true
+
+[node name="H" type="HBoxContainer" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/H2/V"]
+margin_top = 17.0
+margin_right = 297.0
+margin_bottom = 65.0
+custom_constants/separation = 0
+
+[node name="EquipIcon1" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/H2/V/H"]
+margin_right = 297.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="EquipIcon2" type="TextureRect" parent="VBoxContainer/H/Crew2/V/Crew4/VBoxContainer/H2/V/H"]
+visible = false
+margin_left = 62.0
+margin_right = 125.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Crew3" type="MarginContainer" parent="VBoxContainer/H"]
+margin_left = 951.0
+margin_right = 1264.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="V" type="VBoxContainer" parent="VBoxContainer/H/Crew3"]
+margin_right = 313.0
+margin_bottom = 674.0
+custom_constants/separation = 0
+
+[node name="Name" type="Label" parent="VBoxContainer/H/Crew3/V"]
+margin_right = 313.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.8, 0.631373, 0.4, 1 )
+text = "Hoxton"
+align = 1
+uppercase = true
+
+[node name="Perk" type="Label" parent="VBoxContainer/H/Crew3/V"]
+margin_top = 21.0
+margin_right = 313.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 2 )
+text = "Tag Team"
+align = 1
+uppercase = true
+
+[node name="Skills" type="HBoxContainer" parent="VBoxContainer/H/Crew3/V"]
+margin_top = 38.0
+margin_right = 313.0
+margin_bottom = 53.0
+alignment = 1
+
+[node name="Skill1" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills"]
+margin_left = 116.0
+margin_right = 126.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills/Skill1"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill2" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills"]
+margin_left = 130.0
+margin_right = 140.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills/Skill2"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill3" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills"]
+margin_left = 144.0
+margin_right = 154.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills/Skill3"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill4" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills"]
+margin_left = 158.0
+margin_right = 168.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills/Skill4"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill5" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills"]
+margin_left = 172.0
+margin_right = 182.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills/Skill5"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Skill6" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills"]
+margin_left = 186.0
+margin_right = 196.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="Glow" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Skills/Skill6"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 10, 15 )
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crew4" type="PanelContainer" parent="VBoxContainer/H/Crew3/V"]
+margin_top = 53.0
+margin_right = 313.0
+margin_bottom = 674.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/H/Crew3/V/Crew4"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 305.0
+margin_bottom = 613.0
+
+[node name="PrimaryText" type="Label" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer"]
+margin_right = 297.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "AMCAR Rifle"
+align = 1
+uppercase = true
+
+[node name="PrimaryIcon" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer"]
+material = ExtResource( 16 )
+margin_top = 21.0
+margin_right = 297.0
+margin_bottom = 231.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 18 )
+
+[node name="SecondaryText" type="Label" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer"]
+margin_top = 235.0
+margin_right = 297.0
+margin_bottom = 252.0
+custom_fonts/font = SubResource( 10 )
+text = "Chimano 88 Pistol"
+align = 1
+uppercase = true
+
+[node name="SecondaryIcon" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer"]
+material = ExtResource( 16 )
+margin_top = 256.0
+margin_right = 297.0
+margin_bottom = 467.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 18 )
+
+[node name="ArmorThrow" type="HBoxContainer" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer"]
+margin_top = 471.0
+margin_right = 297.0
+margin_bottom = 536.0
+custom_constants/separation = 0
+
+[node name="VArmor" type="VBoxContainer" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/ArmorThrow"]
+margin_right = 148.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="ArmorText" type="Label" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/ArmorThrow/VArmor"]
+margin_right = 148.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Armor"
+align = 1
+uppercase = true
+
+[node name="ArmorIcon" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/ArmorThrow/VArmor"]
+margin_top = 17.0
+margin_right = 148.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="VThrow" type="VBoxContainer" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/ArmorThrow"]
+margin_left = 148.0
+margin_right = 297.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="ThrowText" type="Label" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/ArmorThrow/VThrow"]
+margin_right = 149.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Thrown"
+align = 1
+uppercase = true
+
+[node name="ThrowIcon" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/ArmorThrow/VThrow"]
+margin_top = 17.0
+margin_right = 149.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_vertical = 3
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 6
+
+[node name="H2" type="HBoxContainer" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer"]
+margin_top = 540.0
+margin_right = 297.0
+margin_bottom = 605.0
+custom_constants/separation = 0
+
+[node name="V" type="VBoxContainer" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/H2"]
+margin_right = 297.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="EquipText" type="Label" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/H2/V"]
+margin_right = 297.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 10 )
+text = "Equipment"
+align = 1
+uppercase = true
+
+[node name="H" type="HBoxContainer" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/H2/V"]
+margin_top = 17.0
+margin_right = 297.0
+margin_bottom = 65.0
+custom_constants/separation = 0
+
+[node name="EquipIcon1" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/H2/V/H"]
+margin_right = 148.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="EquipIcon2" type="TextureRect" parent="VBoxContainer/H/Crew3/V/Crew4/VBoxContainer/H2/V/H"]
+margin_left = 148.0
+margin_right = 297.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6

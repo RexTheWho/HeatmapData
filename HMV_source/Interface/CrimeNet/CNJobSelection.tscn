@@ -12,7 +12,7 @@
 [ext_resource path="res://Interface/CrimeNet/CNJobSelection.gd" type="Script" id=10]
 [ext_resource path="res://Interface/CrimeNet/Textures/cn_time.png" type="Texture" id=11]
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 20, 20 )
 margin_left = 10.0
@@ -20,7 +20,7 @@ margin_right = 10.0
 margin_top = 10.0
 margin_bottom = 10.0
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 20, 20 )
 margin_left = 10.0
@@ -29,7 +29,7 @@ margin_top = 10.0
 margin_bottom = 10.0
 draw_center = false
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=3]
 extra_spacing_top = -1
 extra_spacing_bottom = -3
 font_data = ExtResource( 1 )
@@ -54,11 +54,11 @@ margin_bottom = 54.0
 rect_min_size = Vector2( 0, 54 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 7 )
-custom_styles/disabled = SubResource( 8 )
-custom_styles/normal = SubResource( 8 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
 enabled_focus_mode = 0
 script = ExtResource( 10 )
 __meta__ = {
@@ -109,7 +109,7 @@ margin_right = 64.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 32, 16 )
 size_flags_vertical = 8
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 3 )
 text = "_"
 valign = 2
 clip_text = true
@@ -193,4 +193,6 @@ align = 1
 valign = 1
 clip_text = true
 
+[connection signal="mouse_entered" from="." to="." method="_on_JobSelection_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_JobSelection_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_play_job"]

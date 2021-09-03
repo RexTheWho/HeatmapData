@@ -6,14 +6,27 @@ Hooks:PostHook(GamePlayCentralManager, "init", "HeatmapInit", function(self)
 		self._heatmap_update_t = 0
 		-- Some of this might be up for organisation, its all Header.
 		
-		local heat_date = HeatMap.GetTrackDate()
+		-- job
 		local job_data = managers.job
 		local job_id = job_data and job_data:current_job_id() or "err"
-		local contractor_id = job_data and job_data:current_contact_id() or "err"
-		local difficulty = job_data and job_data:current_difficulty_stars() or "err"
+		local job_name_id = job_id and tweak_data.narrative.jobs[job_id].name_id or "err n id"
+		local job_loc = job_name_id and managers.localization:text(job_name_id) or "JOB NAME ERROR"
 		
+		-- contractor (req job above)
+		local contractor_id = job_data and job_data:current_contact_id() or "err"
+		local contractor_name_id = contractor_id and tweak_data.narrative.contacts[contractor_id] and tweak_data.narrative.contacts[contractor_id].name_id or "err n id"
+		local contractor_loc = contractor_name_id and managers.localization:text(contractor_name_id) or "CONTRACTOR NAME ERROR"
+		
+		
+		-- lvl
 		local level_data = Global.level_data
 		local lvl_id = level_data and level_data.level_id or "err"
+		local lvl_name_id = lvl_id and tweak_data.levels[lvl_id] and tweak_data.levels[lvl_id].name_id or "err n id"
+		local lvl_loc = lvl_name_id and managers.localization:text(lvl_name_id) or "LEVEL NAME ERROR"
+		
+		-- misc
+		local heat_date = HeatMap.GetTrackDate()
+		local difficulty = job_data and job_data:current_difficulty_stars() or "err"
 		local ghost_required = tweak_data.levels[lvl_id].ghost_required and tweak_data.levels[lvl_id].ghost_required or tweak_data.levels[lvl_id].ghost_required_visual and tweak_data.levels[lvl_id].ghost_required_visual or false
 		local loud_optional = tweak_data.levels[lvl_id].ghost_bonus and tweak_data.levels[lvl_id].ghost_bonus > 0 or false
 		local environment = tweak_data.levels[lvl_id].environment_effects and tweak_data.levels[lvl_id].environment_effects or nil
@@ -23,7 +36,10 @@ Hooks:PostHook(GamePlayCentralManager, "init", "HeatmapInit", function(self)
 			update_delay = HeatMap.update_delay,
 			job_id = job_id,
 			level_id = lvl_id,
+			job_loc = job_loc,
+			level_loc = lvl_loc,
 			contractor_id = contractor_id,
+			contractor_loc = contractor_loc,
 			difficulty = difficulty,
 			stealth_only = ghost_required,
 			loud_only = not loud_optional,

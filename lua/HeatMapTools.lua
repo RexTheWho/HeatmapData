@@ -1,11 +1,10 @@
 _G.HeatMap = _G.HeatMap or {
-	record_heist = true,
-    update_delay = 0.125,
--- update_delay quality: super_low = 1.0, low = 0.75, 2fps = 0.5, 4fps = 0.25, 8fps = 0.125, 15fps = 0.067
+	record_heist = HeatmapData.Options:GetValue("heatmap_enabled"),
+	record_heist_live = HeatmapData.Options:GetValue("heatmap_live"),
+    update_delay = math.round(HeatmapData.Options:GetValue("heatmap_update")*100)/100, --Quick cheat to limit decimal places
     filename = ModPath,
     rec_folder = "records",
 	nav_folder = "nav_data",
-	track_save_per_frame = false,
 	
 	track_path = "",
 	heist_started = false,
@@ -16,9 +15,8 @@ _G.HeatMap = _G.HeatMap or {
 	units_to_track = {}
 }
 
-
 -- 
--- File headers are made on level load regardless of settings, for now they can be tweaked during play if track_save_per_frame is false.
+-- File headers are made on level load regardless of settings, for now they can be tweaked during play if record_heist_live is false.
 -- 'track_header' is preserved until its saved where it is thrown away afterwards.
 -- 'track_frames' is preserved until its saved where it is thrown away afterwards.
 -- 'track_events' will filter specific events and can only happen once per frame. Applies on level load.
@@ -93,7 +91,7 @@ function HeatMap:SaveTrackData()
 	
 	if file then
 		HeatMap.track_header.stringdex = HeatMap.stringdex
-		if HeatMap.track_save_per_frame == false then
+		if HeatMap.record_heist_live == false then
 			HeatMap.track_header.frame_total = #HeatMap.track_frames
 			HeatMap:Append(json.encode(HeatMap.track_header), true)
 		end
