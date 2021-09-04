@@ -16,7 +16,6 @@ func _ready():
 	$H/RecordsList/Label.text = "Crime.Net/Evidence_Locker: %03d Records" % [job_headers.size()]
 	var list = get_node_or_null(job_selection_list)
 	if list:
-		list.get_node("NoJobs").visible = false
 		for key in job_headers:
 			add_job_listing(list, key)
 
@@ -47,24 +46,25 @@ func add_job_listing(add_to:Object, key:String):
 
 func get_pdheat_files():
 	var exe_path:String = OS.get_executable_path()
-	exe_path = exe_path.left(exe_path.find_last("\\"))
+	exe_path = exe_path.left(exe_path.find_last("/"))
+	var records_path = exe_path + "/records"
+	print(records_path)
 	var dir:Directory = Directory.new()
-	if !dir.dir_exists(exe_path + "\\records"):
-		push_warning("CNJobList: If you are seeing this the EXE is not in the right place!")
-		exe_path = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\PAYDAY 2\\mods\\HeatmapData\\"
-	
-	if dir.open(exe_path + "records") == OK:
+	if dir.open(records_path) == OK:
+		get_node(job_selection_list).get_node("NoJobs").visible = false
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir():
 				print("Found F: " + file_name)
-				var head = get_jobs_header(exe_path + "records\\" + file_name)
+				var file_path:String = records_path + "/" + file_name
+				print("Path F: " + file_path)
+				var head = get_jobs_header(file_path)
 				job_headers[file_name] = head
-				job_headers[file_name]["path"] = exe_path + "records\\" + file_name
+				job_headers[file_name]["path"] = file_path
 			file_name = dir.get_next()
 	else:
-		print("FAILED TO OPEN PATH")
+		print("FAILED TO OPEN PATH -- " + records_path)
 
 
 

@@ -150,10 +150,11 @@ custom_constants/separation = 10
 
 [node name="NoJobs" type="Label" parent="H/RecordsList/H/Control/Scroll/V"]
 margin_right = 484.0
-margin_bottom = 17.0
+margin_bottom = 37.0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
-text = "You have no recorded jobs -- Come back later after a heist or two"
+text = "You have no recorded jobs -- Come back later after a heist or two
+(Or you put the records folder away from the HeatMap Viewer)"
 align = 1
 uppercase = true
 
@@ -427,6 +428,7 @@ __meta__ = {
 }
 
 [node name="CREW BUILDS" parent="H/JobInfo/Control2/VBoxContainer/TabContainer" instance=ExtResource( 17 )]
+visible = false
 
 [node name="Control3" type="PanelContainer" parent="H/JobInfo/Control2/VBoxContainer"]
 visible = false
