@@ -1,7 +1,7 @@
 _G.HeatMap = _G.HeatMap or {
 	record_heist = HeatmapData.Options:GetValue("heatmap_enabled") or true,
-	record_heist_live = HeatmapData.Options:GetValue("heatmap_live") or true,
-    update_delay = math.round(HeatmapData.Options:GetValue("heatmap_update")*100)/100 or 0.25, --Quick cheat to limit decimal places
+	record_heist_live = HeatmapData.Options:GetValue("heatmap_live") or false,
+    update_delay = math.round(HeatmapData.Options:GetValue("heatmap_update")*100)/100 or 0.2, --Quick cheat to limit decimal places
     filename = ModPath,
     rec_folder = "records",
 	nav_folder = "nav_data",
