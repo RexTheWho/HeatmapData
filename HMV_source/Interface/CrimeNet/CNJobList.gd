@@ -12,16 +12,23 @@ export(NodePath) var job_selection_list
 var job_headers = {}
 
 func _ready():
+	$H/RecordsList/H/V/Side2/V/Reload.connect("reload_jobs", self, "update_job_recordings")
+	update_job_recordings()
+
+func update_job_recordings():
 	get_pdheat_files()
 	$H/RecordsList/Label.text = "Crime.Net/Evidence_Locker: %03d Records" % [job_headers.size()]
 	var list = get_node_or_null(job_selection_list)
 	if list:
+		for i in list.get_children():
+			i.queue_free()
 		for key in job_headers:
 			add_job_listing(list, key)
 
 
 func add_job_listing(add_to:Object, key:String):
 	var job_rec_inst = job_rec.instance()
+	job_rec_inst.name = key
 	var job_head = job_headers[key]
 	var contractor_loc = "Contact Missing"
 	if job_head.has("contractor_loc"):
@@ -48,17 +55,18 @@ func get_pdheat_files():
 	var exe_path:String = OS.get_executable_path()
 	exe_path = exe_path.left(exe_path.find_last("/"))
 	var records_path = exe_path + "/records"
-	print(records_path)
+#	print(records_path)
 	var dir:Directory = Directory.new()
 	if dir.open(records_path) == OK:
-		get_node(job_selection_list).get_node("NoJobs").visible = false
+		var no_items = get_node(job_selection_list).get_node_or_null("NoJobs")
+		if no_items: no_items.visible = false
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir():
-				print("Found F: " + file_name)
+#				print("Found F: " + file_name)
 				var file_path:String = records_path + "/" + file_name
-				print("Path F: " + file_path)
+#				print("Path F: " + file_path)
 				var head = get_jobs_header(file_path)
 				job_headers[file_name] = head
 				job_headers[file_name]["path"] = file_path

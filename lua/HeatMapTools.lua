@@ -12,7 +12,8 @@ _G.HeatMap = _G.HeatMap or {
 	stringdex = {},
 	track_frames = {},
 	frame_events = {},
-	units_to_track = {}
+	units_to_track = {},
+	job_results = {}
 }
 
 -- 
@@ -90,6 +91,8 @@ function HeatMap:SaveTrackData()
 	end
 	
 	if file then
+		HeatMap.GetJobResults()
+		HeatMap.track_header.results = HeatMap.job_results
 		HeatMap.track_header.stringdex = HeatMap.stringdex
 		if HeatMap.record_heist_live == false then
 			HeatMap.track_header.frame_total = #HeatMap.track_frames
@@ -197,10 +200,57 @@ end
 
 
 
+-- Reset results
+function HeatMap:ResetCrewResults()
+	HeatMap.job_results = {
+		job_successful = false,
+		job_income = {
+			contract_pay = 0,
+			bags_total = 0,
+			bag_pay = 0,
+			offshore = 0,
+			spending = 0,
+		},
+		player1 = {},
+		player2 = {},
+		player3 = {},
+		player4 = {}
+	}
+end
 
 
+function HeatMap:GetJobResults()
+	local payouts = managers.money:get_payouts()
+	local stage_payout = payouts.stage_payout
+	local job_payout = payouts.job_payout
+	local bag_payout = payouts.bag_payout
+	local vehicle_payout = payouts.vehicle_payout
+	local small_loot_payout = payouts.small_loot_payout
+	local crew_payout = payouts.crew_payout
+	local skirmish_payout = payouts.skirmish_payout
+	local mutators_reduction = -payouts.mutators_reduction
+	
+	
+	HeatMap.job_results.job_income.stage_payout = payouts.stage_payout
+	HeatMap.job_results.job_income.job_payout = payouts.job_payout
+	HeatMap.job_results.job_income.bag_payout = payouts.bag_payout
+	HeatMap.job_results.job_income.vehicle_payout = payouts.vehicle_payout
+	HeatMap.job_results.job_income.small_loot_payout = payouts.small_loot_payout
+	HeatMap.job_results.job_income.crew_payout = payouts.crew_payout
+	HeatMap.job_results.job_income.skirmish_payout = payouts.skirmish_payout
+	HeatMap.job_results.job_income.mutators_reduction = payouts.mutators_reduction
+	HeatMap.job_results.job_income.offshore = managers.money:heist_offshore()
+	HeatMap.job_results.job_income.spending = managers.money:heist_spending()
+end
 
 
+function HeatMap:AddBagSecured()
+	if HeatMap.job_results and HeatMap.job_results.job_income then
+		HeatMap.job_results.job_income.bags_total = HeatMap.job_results.job_income.bags_total + 1
+	else
+		return 0
+	end
+end
 
 
 

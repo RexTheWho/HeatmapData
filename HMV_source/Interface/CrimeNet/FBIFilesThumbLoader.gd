@@ -38,6 +38,7 @@ func _load_thumb(weapon_id:String, legendary = false):
 		weapon_url = fbi_weapons_url.format({"weapon_id":weapon_id})
 	if !http:
 		http = HTTPRequest.new()
+		http.download_chunk_size = 16
 		http.use_threads = true
 		add_child(http)
 		if http.connect("request_completed", self, "_set_thumb") == OK:

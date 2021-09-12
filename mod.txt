@@ -11,6 +11,9 @@
         {"hook_id" : "lib/managers/gameplaycentralmanager", "script_path" : "lua/gameplaycentralmanager.lua"}
         {"hook_id" : "lib/utils/accelbyte/telemetry", "script_path" : "lua/telemetry.lua"}
 		
+        {"hook_id" : "lib/managers/mission/elementmissionend", "script_path" : "lua/elementmissionend.lua"}
+        {"hook_id" : "lib/managers/mission/elementcarry", "script_path" : "lua/elementcarry.lua"}
+		
         {"hook_id" : "lib/managers/playermanager", "script_path" : "lua/eventlootbag.lua"}
         {"hook_id" : "lib/managers/hudmanager", "script_path" : "lua/eventwaypoint.lua"}
         {"hook_id" : "lib/units/props/securitycamera", "script_path" : "lua/eventsecuritycamera.lua"}

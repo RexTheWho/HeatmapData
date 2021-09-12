@@ -2,6 +2,7 @@
 Hooks:PostHook(GamePlayCentralManager, "init", "HeatmapInit", function(self)
 	if HeatMap.record_heist == true then
 		log("PDHeat: Simulation begin!")
+		HeatMap.ResetCrewResults()
 		HeatMap.UpdateTrackPath()
 		self._heatmap_update_t = 0
 		-- Some of this might be up for organisation, its all Header.
@@ -43,7 +44,8 @@ Hooks:PostHook(GamePlayCentralManager, "init", "HeatmapInit", function(self)
 			difficulty = difficulty,
 			stealth_only = ghost_required,
 			loud_only = not loud_optional,
-			environment_effects = environment
+			environment_effects = environment,
+			results = results
 		}
 		
 		if HeatMap.save_instant == true then

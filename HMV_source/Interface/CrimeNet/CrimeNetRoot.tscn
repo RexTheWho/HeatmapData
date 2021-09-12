@@ -5,12 +5,12 @@
 [ext_resource path="res://Interface/CrimeNet/CrimeNetBackground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Interface/CrimeNet/CrimeNetRoot.gd" type="Script" id=5]
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 render_mode blend_mul;"
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 
 [node name="CrimeNetRoot" type="Node"]
 script = ExtResource( 5 )
@@ -20,7 +20,7 @@ script = ExtResource( 5 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Vignette" type="TextureRect" parent="CanvasLayer"]
-material = SubResource( 4 )
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
